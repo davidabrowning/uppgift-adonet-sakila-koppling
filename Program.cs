@@ -28,24 +28,13 @@ namespace ADOnetSakilaKoppling
                         break;
                     case "3":
                         Console.Write("Ange förnamn: ");
-                        Console.ReadLine();
+                        string firstName = Console.ReadLine().Trim();
                         Console.Write("Ange efternamn: ");
-                        Console.ReadLine();
+                        string lastName = Console.ReadLine().Trim();
                         break;
                     case "4":
                         Console.Write("Listar ut alla skådespelare");
-                        var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-                        var command = new SqlCommand("SELECT * FROM actor", connection);
-                        connection.Open();
-                        var result = command.ExecuteReader();
-                        if (result.HasRows)
-                        {
-                            while (result.Read())
-                            {
-                                Console.WriteLine($"{result[1]} {result[2]}");
-                            }
-                        }
-                        connection.Close();
+                        PrintQueryResults("SELECT * FROM actor");
                         Console.ReadLine();
                         break;
                     case "5":
@@ -55,6 +44,21 @@ namespace ADOnetSakilaKoppling
                         break;
                 }
             }
+        }
+        public static void PrintQueryResults(string query)
+        {
+            var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            var command = new SqlCommand(query, connection);
+            connection.Open();
+            var result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    Console.WriteLine($"{result[1]} {result[2]}");
+                }
+            }
+            connection.Close();
         }
     }
 }
