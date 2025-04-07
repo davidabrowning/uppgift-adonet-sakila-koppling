@@ -40,25 +40,28 @@ namespace ADOnetSakilaKoppling
         }
         public void ShowActors(string actorQuery)
         {
+            int actorCounter = 1;
             foreach (string[] actor in GetQueryResults(actorQuery))
             {
-                output.WriteLine($"{actor[1]} {actor[2]}");
+                output.WriteLine($"{actorCounter++}. {actor[1]} {actor[2]}");
             }
         }
         public void ShowActorsAndTheirFilms(string actorQuery)
         {
             foreach (string[] actor in GetQueryResults(actorQuery))
             {
-                output.WriteSubtitle($"Films with {actor[0]} {actor[1]} {actor[2]}");
-
                 int.TryParse(actor[0], out int actorId);
                 string filmQuery = "SELECT * FROM film " +
                     "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
                     "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
                     "WHERE actor.actor_id = " + actorId;
-                foreach (string[] film in GetQueryResults(filmQuery))
+                List<string[]> filmList = GetQueryResults(filmQuery);
+
+                output.WriteSubtitle($"{filmList.Count} filmer med {actor[1]} {actor[2]}");
+                int filmCounter = 1;
+                foreach (string[] film in filmList)
                 {
-                    output.WriteLine($"{film[0]} {film[1]}");
+                    output.WriteLine($"{filmCounter++}. {film[1]}");
                 }
             }
         }
