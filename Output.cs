@@ -25,5 +25,10 @@ namespace ADOnetSakilaKoppling
             Clear();
             WriteLine($"=== {text} ===");
         }
+        public void ConfirmContinue()
+        {
+            WriteLine("Tryck ENTER för att fortsätta.");
+            Console.ReadLine();
+        }
     }
 }

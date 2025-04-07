@@ -43,7 +43,7 @@ namespace ADOnetSakilaKoppling
         }
         private void HandleMainMenuSelection(ref bool showMainMenu)
         {
-            switch (Console.ReadLine().Trim())
+            switch (input.GetString("Ditt val: "))
             {
                 case "1":
                     ShowMoviesByFirstName();
@@ -67,32 +67,28 @@ namespace ADOnetSakilaKoppling
         }
         private void ShowMoviesByFirstName()
         {
-            output.Write("Ange förnamn: ");
-            string firstName = Console.ReadLine().Trim();
+            string firstName = input.GetString("Ange förnamn:");
             repository.PrintQueryResults($"SELECT * FROM actor WHERE first_name LIKE '{firstName}'");
-            Console.ReadLine();
+            output.ConfirmContinue();
         }
         private void ShowMoviesByLastName()
         {
-            output.Write("Ange efternamn: ");
-            string lastName = Console.ReadLine().Trim();
+            string lastName = input.GetString("Ange efternamn:");
             repository.PrintQueryResults($"SELECT * FROM actor WHERE last_name LIKE '{lastName}'");
-            Console.ReadLine();
+            output.ConfirmContinue();
         }
         private void ShowMoviesByFullName()
         {
-            output.Write("Ange förnamn: ");
-            string firstName2 = Console.ReadLine().Trim();
-            output.Write("Ange efternamn: ");
-            string lastName2 = Console.ReadLine().Trim();
-            repository.PrintQueryResults($"SELECT * FROM actor WHERE first_name LIKE '{firstName2}' AND last_name LIKE '{lastName2}'");
-            Console.ReadLine();
+            string firstName = input.GetString("Ange förnamn:");
+            string lastName = input.GetString("Ange efternamn:");
+            repository.PrintQueryResults($"SELECT * FROM actor WHERE first_name LIKE '{firstName}' AND last_name LIKE '{lastName}'");
+            output.ConfirmContinue();
         }
         private void ListAllActors()
         {
             output.Write("Listar ut alla skådespelare");
             repository.PrintQueryResults("SELECT * FROM actor");
-            Console.ReadLine();
+            output.ConfirmContinue();
         }
         private void ShowGoodbye()
         {

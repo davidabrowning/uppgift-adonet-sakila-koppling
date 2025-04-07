@@ -13,5 +13,10 @@ namespace ADOnetSakilaKoppling
         {
             this.output = output;
         }
+        public string GetString(string prompt)
+        {
+            output.Write(prompt);
+            return Console.ReadLine().Trim();
+        }
     }
 }
