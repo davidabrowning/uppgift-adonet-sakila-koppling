@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Reflection.Metadata;
 namespace ADOnetSakilaKoppling
 {
     internal class Program
@@ -34,6 +35,17 @@ namespace ADOnetSakilaKoppling
                     case "4":
                         Console.Write("Listar ut alla skådespelare");
                         var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                        var command = new SqlCommand("SELECT * FROM actor", connection);
+                        connection.Open();
+                        var result = command.ExecuteReader();
+                        if (result.HasRows)
+                        {
+                            while (result.Read())
+                            {
+                                Console.WriteLine($"{result[1]} {result[2]}");
+                            }
+                        }
+                        connection.Close();
                         Console.ReadLine();
                         break;
                     case "5":
