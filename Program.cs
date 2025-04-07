@@ -1,10 +1,13 @@
-﻿namespace ADOnetSakilaKoppling
+﻿using Microsoft.Data.SqlClient;
+using System.Reflection.Metadata;
+namespace ADOnetSakilaKoppling
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            ProgramLauncher programLauncher = new ProgramLauncher();
+            programLauncher.Launch();
         }
     }
 }
