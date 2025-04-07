@@ -33,7 +33,7 @@ namespace ADOnetSakilaKoppling
                         break;
                     case "4":
                         Console.Write("Listar ut alla skådespelare");
-                        
+                        var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
                         Console.ReadLine();
                         break;
                     case "5":
