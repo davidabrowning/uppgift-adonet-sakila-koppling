@@ -22,9 +22,10 @@ namespace ADOnetSakilaKoppling
             var result = command.ExecuteReader();
             if (result.HasRows)
             {
+                int resultCounter = 1;
                 while (result.Read())
                 {
-                    output.WriteLine($"{result[1]} {result[2]}");
+                    output.WriteLine($"{resultCounter++}. {result[1]} {result[2]}");
                 }
             }
             connection.Close();

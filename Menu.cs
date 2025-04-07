@@ -86,7 +86,7 @@ namespace ADOnetSakilaKoppling
         }
         private void ListAllActors()
         {
-            output.Write("Listar ut alla skådespelare");
+            output.WriteSubtitle("Listar ut alla skådespelare");
             repository.PrintQueryResults("SELECT * FROM actor");
             output.ConfirmContinue();
         }
