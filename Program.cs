@@ -32,6 +32,7 @@
                         break;
                     case "4":
                         Console.Write("Listar ut alla skådespelare");
+                        
                         Console.ReadLine();
                         break;
                     case "5":
