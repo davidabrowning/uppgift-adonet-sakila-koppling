@@ -1,4 +1,5 @@
-﻿namespace ADOnetSakilaKoppling
+﻿using Microsoft.Data.SqlClient;
+namespace ADOnetSakilaKoppling
 {
     internal class Program
     {
