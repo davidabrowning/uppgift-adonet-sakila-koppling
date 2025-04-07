@@ -20,5 +20,10 @@ namespace ADOnetSakilaKoppling
         {
             Console.Write(text);
         }
+        public void WriteTitle(string text)
+        {
+            Clear();
+            WriteLine($"=== {text} ===");
+        }
     }
 }
