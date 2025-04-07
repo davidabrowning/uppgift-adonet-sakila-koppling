@@ -68,26 +68,26 @@ namespace ADOnetSakilaKoppling
         private void ShowMoviesByFirstName()
         {
             string firstName = input.GetString("Ange förnamn:");
-            repository.PrintQueryResults($"SELECT * FROM actor WHERE first_name LIKE '{firstName}'");
+            repository.ShowMoviesByActorFirstName(firstName);
             output.ConfirmContinue();
         }
         private void ShowMoviesByLastName()
         {
             string lastName = input.GetString("Ange efternamn:");
-            repository.PrintQueryResults($"SELECT * FROM actor WHERE last_name LIKE '{lastName}'");
+            repository.ShowMoviesByActorLastName(lastName);
             output.ConfirmContinue();
         }
         private void ShowMoviesByFullName()
         {
             string firstName = input.GetString("Ange förnamn:");
             string lastName = input.GetString("Ange efternamn:");
-            repository.PrintQueryResults($"SELECT * FROM actor WHERE first_name LIKE '{firstName}' AND last_name LIKE '{lastName}'");
+            repository.ShowMoviesByActorFullName(firstName, lastName);
             output.ConfirmContinue();
         }
         private void ListAllActors()
         {
             output.WriteSubtitle("Listar ut alla skådespelare");
-            repository.PrintQueryResults("SELECT * FROM actor");
+            repository.ShowActorList();
             output.ConfirmContinue();
         }
         private void ShowGoodbye()
