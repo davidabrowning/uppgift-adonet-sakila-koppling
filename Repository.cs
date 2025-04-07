@@ -38,11 +38,28 @@ namespace ADOnetSakilaKoppling
 
             return results;
         }
+        public void ShowActors(string actorQuery)
+        {
+            foreach (string[] actor in GetQueryResults(actorQuery))
+            {
+                output.WriteLine($"{actor[1]} {actor[2]}");
+            }
+        }
         public void ShowActorsAndTheirFilms(string actorQuery)
         {
             foreach (string[] actor in GetQueryResults(actorQuery))
             {
                 output.WriteSubtitle($"Films with {actor[0]} {actor[1]} {actor[2]}");
+
+                int.TryParse(actor[0], out int actorId);
+                string filmQuery = "SELECT * FROM film " +
+                    "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
+                    "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
+                    "WHERE actor.actor_id = " + actorId;
+                foreach (string[] film in GetQueryResults(filmQuery))
+                {
+                    output.WriteLine($"{film[0]} {film[1]}");
+                }
             }
         }
         public void ShowMoviesByActorFirstName(string firstName)
@@ -59,7 +76,7 @@ namespace ADOnetSakilaKoppling
         }
         public void ShowActorList()
         {
-            ShowActorsAndTheirFilms($"SELECT * FROM actor");
+            ShowActors($"SELECT * FROM actor");
         }
     }
 }
