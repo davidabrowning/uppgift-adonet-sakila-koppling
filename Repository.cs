@@ -24,7 +24,7 @@ namespace ADOnetSakilaKoppling
             {
                 while (result.Read())
                 {
-                    Console.WriteLine($"{result[1]} {result[2]}");
+                    output.WriteLine($"{result[1]} {result[2]}");
                 }
             }
             connection.Close();
