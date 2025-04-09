@@ -63,33 +63,6 @@ namespace ADOnetSakilaKoppling
             }                
             return actors;
         }
-        public void ShowActorsAndTheirFilms(string actorQuery)
-        {
-            foreach (string[] actorResult in GetQueryResults(actorQuery))
-            {
-                int.TryParse(actorResult[0], out int actorId);
-                Actor actor = new Actor(actorId, actorResult[1], actorResult[2]);
-                string filmQuery = "SELECT * FROM film " +
-                    "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
-                    "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
-                    "WHERE actor.actor_id = " + actorId;
-                List<string[]> filmResults = GetQueryResults(filmQuery);
-
-                output.WriteSubtitle($"{filmResults.Count} filmer med {actor.FullName}");
-                int filmCounter = 0;
-                foreach (string[] filmResult in filmResults)
-                {
-                    Film film = new Film(filmResult[1]);
-                    if (filmCounter > 0 &&  filmCounter % 3 == 0)
-                        output.WriteLine();
-                    // Note: Max filmResult name length is 27
-                    output.Write($"{film.Title, -28}");
-                    actor.Add(film);
-                    filmCounter++;
-                }
-                output.WriteLine();
-            }
-        }
         public void PopulateFilmLists(List<Actor> actors)
         {
             foreach (Actor actor in actors)
