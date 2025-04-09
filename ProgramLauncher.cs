@@ -12,7 +12,7 @@ namespace ADOnetSakilaKoppling
         {
             Output output = new Output();
             Input input = new Input(output);
-            Repository repository = new Repository(output);
+            Repository repository = new Repository();
             Menu menu = new Menu(input, output, repository);
             menu.Start();
         }
