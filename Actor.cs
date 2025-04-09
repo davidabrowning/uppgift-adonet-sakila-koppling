@@ -10,6 +10,8 @@ namespace ADOnetSakilaKoppling
     {
         public string FirstName { get; }
         public string LastName { get; }
+        public string FullName { get { return $"{FirstName} {LastName}"; } }
+
         public Actor(string firstName, string lastName)
         {
             FirstName = firstName;

@@ -56,13 +56,13 @@ namespace ADOnetSakilaKoppling
         public void ShowActors(string actorQuery)
         {
             int actorCounter = 0;
-            foreach (string[] actor in GetQueryResults(actorQuery))
+            foreach (string[] actorResult in GetQueryResults(actorQuery))
             {
+                Actor actor = new Actor(actorResult[1], actorResult[2]);
                 if (actorCounter > 0 && actorCounter % 4 == 0)
                     output.WriteLine();
                 // Note: Max actor full name length is 19
-                string actorFullName = $"{actor[1]} {actor[2]}";
-                output.Write($"{actorFullName, -20}");
+                output.Write($"{actor.FullName, -20}");
                 actorCounter++;
             }
             output.WriteLine();
