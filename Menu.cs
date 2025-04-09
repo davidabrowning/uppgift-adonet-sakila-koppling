@@ -40,10 +40,11 @@ namespace ADOnetSakilaKoppling
             output.WriteLine("3. Sök efter både förnamn och efternamn");
             output.WriteLine("4. Lista ut alla skådespelare");
             output.WriteLine("5. Avsluta programmet");
+            output.WriteLine();
         }
         private void HandleMainMenuSelection(ref bool showMainMenu)
         {
-            switch (input.GetString("Ditt val: "))
+            switch (input.GetString("Ditt val:"))
             {
                 case "1":
                     ShowMoviesByFirstName();

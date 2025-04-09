@@ -8,21 +8,33 @@ namespace ADOnetSakilaKoppling
 {
     internal class Output
     {
+        const ConsoleColor defaultColor = ConsoleColor.Black;
         public void Clear()
         {
+            Console.BackgroundColor = ConsoleColor.White;
             Console.Clear();
+            
+        }
+        public void Write(string text, ConsoleColor textColor)
+        {
+            Console.ForegroundColor = textColor;
+            Console.Write(text);
+        }
+        public void Write(string text)
+        {
+            Write(text, defaultColor);
+        }
+        public void WriteLine(string text, ConsoleColor textColor)
+        {
+            Write(text + "\n", textColor);
         }
         public void WriteLine(string text)
         {
-            Console.WriteLine(text);
+            WriteLine(text, defaultColor);
         }
         public void WriteLine()
         {
             WriteLine("");
-        }
-        public void Write(string text)
-        {
-            Console.Write(text);
         }
         public void WriteTitle(string text)
         {
@@ -31,11 +43,17 @@ namespace ADOnetSakilaKoppling
         }
         public void WriteSubtitle(string text)
         {
-            WriteLine($"\n=== {text} ===");
+            WriteLine();
+            WriteLine($"=== {text} ===", ConsoleColor.DarkYellow);
+        }
+        public void WritePrompt(string text)
+        {
+            Write(text + " ", ConsoleColor.DarkGreen);
         }
         public void ConfirmContinue()
         {
-            WriteLine("\nTryck ENTER för att fortsätta.");
+            WriteLine();
+            WriteLine("Tryck ENTER för att fortsätta.", ConsoleColor.DarkGreen);
             Console.ReadLine();
         }
     }
