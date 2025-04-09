@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling
@@ -18,7 +20,15 @@ namespace ADOnetSakilaKoppling
         {
             List<string[]> results = new List<string[]>();
 
-            using (var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"))
+            string appsettings = File.ReadAllText("Appsettings.json");
+            JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
+            string connectionString = appsettingsJson
+                .RootElement
+                .GetProperty("ConnectionStrings")
+                .GetProperty("Sakila")
+                .ToString();
+
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
