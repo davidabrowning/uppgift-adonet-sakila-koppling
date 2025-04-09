@@ -67,7 +67,8 @@ namespace ADOnetSakilaKoppling
         {
             foreach (Actor actor in actors)
             {
-                string filmQuery = "SELECT * FROM film " +
+                string filmQuery = 
+                    "SELECT * FROM film " +
                     "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
                     "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
                     "WHERE actor.actor_id = " + actor.ActorId;
@@ -78,7 +79,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetActorsAndFilmsByActorFirstName(string firstName)
         {
-            List<Actor> actors = GetActors($"SELECT * FROM actor " +
+            List<Actor> actors = GetActors(
+                $"SELECT * FROM actor " +
                 $"WHERE first_name LIKE '{firstName}' " +
                 $"ORDER BY first_name ASC, last_name ASC");
             PopulateFilmLists(actors);
@@ -86,7 +88,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetActorsAndFilmsByActorLastName(string lastName)
         {
-            List<Actor> actors = GetActors($"SELECT * FROM actor " +
+            List<Actor> actors = GetActors(
+                $"SELECT * FROM actor " +
                 $"WHERE last_name LIKE '{lastName}' " +
                 $"ORDER BY first_name ASC, last_name ASC");
             PopulateFilmLists(actors);
@@ -94,7 +97,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetActorsAndFilmsByActorFullName(string firstName, string lastName)
         {
-            List<Actor> actors = GetActors($"SELECT * FROM actor " +
+            List<Actor> actors = GetActors(
+                $"SELECT * FROM actor " +
                 $"WHERE first_name LIKE '{firstName}' " +
                 $"AND last_name LIKE '{lastName}' " +
                 $"ORDER BY first_name ASC, last_name ASC");
@@ -103,7 +107,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetAllActors()
         {
-            return GetActors($"SELECT * FROM actor " +
+            return GetActors(
+                $"SELECT * FROM actor " +
                 $"ORDER BY first_name ASC, last_name ASC");
         }
     }
