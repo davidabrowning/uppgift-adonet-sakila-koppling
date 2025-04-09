@@ -62,32 +62,63 @@ namespace ADOnetSakilaKoppling
                     break;
                 default:
                     output.WriteLine("Oväntad inmatning. Försök igen.");
+                    output.ConfirmContinue();
                     break;
             }
         }
         private void ShowMoviesByFirstName()
         {
             string firstName = input.GetString("Ange förnamn:");
-            repository.ShowMoviesByActorFirstName(firstName);
+            foreach (Actor actor in repository.GetActorsAndFilmsByActorFirstName(firstName))
+            {
+                ShowActorMovies(actor);
+            }
             output.ConfirmContinue();
         }
         private void ShowMoviesByLastName()
         {
             string lastName = input.GetString("Ange efternamn:");
-            repository.ShowMoviesByActorLastName(lastName);
+            foreach (Actor actor in repository.GetActorsAndFilmsByActorLastName(lastName))
+            {
+                ShowActorMovies(actor);
+            }
             output.ConfirmContinue();
         }
         private void ShowMoviesByFullName()
         {
             string firstName = input.GetString("Ange förnamn:");
             string lastName = input.GetString("Ange efternamn:");
-            repository.ShowMoviesByActorFullName(firstName, lastName);
+            foreach (Actor actor in repository.GetActorsAndFilmsByActorFullName(firstName, lastName))
+            {
+                ShowActorMovies(actor);
+            }
             output.ConfirmContinue();
+        }
+        private void ShowActorMovies(Actor actor)
+        {
+            output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
+            int filmCounter = 0;
+            foreach (Film film in actor.Films)
+            {
+                if (filmCounter > 0 && filmCounter % 3 == 0)
+                    output.WriteLine();
+                output.Write($"{film.Title,-28}"); // Note: Max filmResult name length is 27
+                filmCounter++;
+            }
+            output.WriteLine();
         }
         private void ListAllActors()
         {
             output.WriteSubtitle("Listar ut alla skådespelare");
-            repository.ShowActorList();
+            int actorCounter = 0;
+            foreach (Actor actor in repository.GetAllActors())
+            {
+                if (actorCounter > 0 && actorCounter % 4 == 0)
+                    output.WriteLine();                
+                output.Write($"{actor.FullName,-20}"); // Note: Max actorResult full name length is 19
+                actorCounter++;
+            }
+            output.WriteLine();
             output.ConfirmContinue();
         }
         private void ShowGoodbye()

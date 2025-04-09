@@ -53,60 +53,66 @@ namespace ADOnetSakilaKoppling
             }
             return results;
         }
-        public void ShowActors(string actorQuery)
+        public List<Actor> GetActors(string actorQuery)
         {
-            int actorCounter = 0;
-            foreach (string[] actor in GetQueryResults(actorQuery))
+            List<Actor> actors = new List<Actor>();
+            foreach (string[] actorResult in GetQueryResults(actorQuery))
             {
-                if (actorCounter > 0 && actorCounter % 4 == 0)
-                    output.WriteLine();
-                // Note: Max actor full name length is 19
-                string actorFullName = $"{actor[1]} {actor[2]}";
-                output.Write($"{actorFullName, -20}");
-                actorCounter++;
-            }
-            output.WriteLine();
+                int.TryParse(actorResult[0], out int actorId);
+                actors.Add(new Actor(actorId, actorResult[1], actorResult[2]));
+            }                
+            return actors;
         }
-        public void ShowActorsAndTheirFilms(string actorQuery)
+        public void PopulateFilmLists(List<Actor> actors)
         {
-            foreach (string[] actor in GetQueryResults(actorQuery))
+            foreach (Actor actor in actors)
             {
-                int.TryParse(actor[0], out int actorId);
-                string filmQuery = "SELECT * FROM film " +
-                    "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
-                    "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
-                    "WHERE actor.actor_id = " + actorId;
-                List<string[]> filmList = GetQueryResults(filmQuery);
-
-                output.WriteSubtitle($"{filmList.Count} filmer med {actor[1]} {actor[2]}");
-                int filmCounter = 0;
-                foreach (string[] film in filmList)
+                string filmQuery = 
+                    $"SELECT * FROM film " +
+                    $"INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
+                    $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
+                    $"WHERE actor.actor_id = {actor.ActorId}";
+                List<string[]> filmResults = GetQueryResults(filmQuery);
+                foreach (string[] filmResult in filmResults)
                 {
-                    if (filmCounter > 0 &&  filmCounter % 3 == 0)
-                        output.WriteLine();
-                    // Note: Max film name length is 27
-                    string filmTitle = film[1];
-                    output.Write($"{filmTitle, -28}");
-                    filmCounter++;
+                    int.TryParse(filmResult[0], out int filmId);
+                    actor.Add(new Film(filmId, filmResult[1]));
                 }
-                output.WriteLine();
             }
         }
-        public void ShowMoviesByActorFirstName(string firstName)
+        public List<Actor> GetActorsAndFilmsByActorFirstName(string firstName)
         {
-            ShowActorsAndTheirFilms($"SELECT * FROM actor WHERE first_name LIKE '{firstName}'");
+            List<Actor> actors = GetActors(
+                $"SELECT * FROM actor " +
+                $"WHERE first_name = '{firstName}' " +
+                $"ORDER BY first_name ASC, last_name ASC");
+            PopulateFilmLists(actors);
+            return actors;
         }
-        public void ShowMoviesByActorLastName(string lastName)
+        public List<Actor> GetActorsAndFilmsByActorLastName(string lastName)
         {
-            ShowActorsAndTheirFilms($"SELECT * FROM actor WHERE last_name LIKE '{lastName}'");
+            List<Actor> actors = GetActors(
+                $"SELECT * FROM actor " +
+                $"WHERE last_name = '{lastName}' " +
+                $"ORDER BY first_name ASC, last_name ASC");
+            PopulateFilmLists(actors);
+            return actors;
         }
-        public void ShowMoviesByActorFullName(string firstName, string lastName)
+        public List<Actor> GetActorsAndFilmsByActorFullName(string firstName, string lastName)
         {
-            ShowActorsAndTheirFilms($"SELECT * FROM actor WHERE first_name LIKE '{firstName}' AND last_name LIKE '{lastName}'");
+            List<Actor> actors = GetActors(
+                $"SELECT * FROM actor " +
+                $"WHERE first_name = '{firstName}' " +
+                $"AND last_name = '{lastName}' " +
+                $"ORDER BY first_name ASC, last_name ASC");
+            PopulateFilmLists(actors);
+            return actors;
         }
-        public void ShowActorList()
+        public List<Actor> GetAllActors()
         {
-            ShowActors($"SELECT * FROM actor");
+            return GetActors(
+                $"SELECT * FROM actor " +
+                $"ORDER BY first_name ASC, last_name ASC");
         }
     }
 }
