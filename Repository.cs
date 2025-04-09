@@ -68,10 +68,10 @@ namespace ADOnetSakilaKoppling
             foreach (Actor actor in actors)
             {
                 string filmQuery = 
-                    "SELECT * FROM film " +
-                    "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
-                    "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
-                    "WHERE actor.actor_id = " + actor.ActorId;
+                    $"SELECT * FROM film " +
+                    $"INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
+                    $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
+                    $"WHERE actor.actor_id = {actor.ActorId}";
                 List<string[]> filmResults = GetQueryResults(filmQuery);
                 foreach (string[] filmResult in filmResults)
                     actor.Add(new Film(filmResult[1]));
@@ -81,7 +81,7 @@ namespace ADOnetSakilaKoppling
         {
             List<Actor> actors = GetActors(
                 $"SELECT * FROM actor " +
-                $"WHERE first_name LIKE '{firstName}' " +
+                $"WHERE first_name = '{firstName}' " +
                 $"ORDER BY first_name ASC, last_name ASC");
             PopulateFilmLists(actors);
             return actors;
@@ -90,7 +90,7 @@ namespace ADOnetSakilaKoppling
         {
             List<Actor> actors = GetActors(
                 $"SELECT * FROM actor " +
-                $"WHERE last_name LIKE '{lastName}' " +
+                $"WHERE last_name = '{lastName}' " +
                 $"ORDER BY first_name ASC, last_name ASC");
             PopulateFilmLists(actors);
             return actors;
@@ -99,8 +99,8 @@ namespace ADOnetSakilaKoppling
         {
             List<Actor> actors = GetActors(
                 $"SELECT * FROM actor " +
-                $"WHERE first_name LIKE '{firstName}' " +
-                $"AND last_name LIKE '{lastName}' " +
+                $"WHERE first_name = '{firstName}' " +
+                $"AND last_name = '{lastName}' " +
                 $"ORDER BY first_name ASC, last_name ASC");
             PopulateFilmLists(actors);
             return actors;
