@@ -11,11 +11,6 @@ namespace ADOnetSakilaKoppling
 {
     internal class Repository
     {
-        private readonly Output output;
-        public Repository(Output output)
-        {
-            this.output = output;
-        }
         public List<string[]> GetQueryResults(string query)
         {
             List<string[]> results = new List<string[]>();

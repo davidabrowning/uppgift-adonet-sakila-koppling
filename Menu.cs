@@ -70,18 +70,14 @@ namespace ADOnetSakilaKoppling
         {
             string firstName = input.GetString("Ange förnamn:");
             foreach (Actor actor in repository.GetActorsAndFilmsByActorFirstName(firstName))
-            {
                 ShowActorMovies(actor);
-            }
             output.ConfirmContinue();
         }
         private void ShowMoviesByLastName()
         {
             string lastName = input.GetString("Ange efternamn:");
             foreach (Actor actor in repository.GetActorsAndFilmsByActorLastName(lastName))
-            {
                 ShowActorMovies(actor);
-            }
             output.ConfirmContinue();
         }
         private void ShowMoviesByFullName()
@@ -89,9 +85,7 @@ namespace ADOnetSakilaKoppling
             string firstName = input.GetString("Ange förnamn:");
             string lastName = input.GetString("Ange efternamn:");
             foreach (Actor actor in repository.GetActorsAndFilmsByActorFullName(firstName, lastName))
-            {
                 ShowActorMovies(actor);
-            }
             output.ConfirmContinue();
         }
         private void ShowActorMovies(Actor actor)
