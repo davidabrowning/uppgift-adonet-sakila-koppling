@@ -74,7 +74,10 @@ namespace ADOnetSakilaKoppling
                     $"WHERE actor.actor_id = {actor.ActorId}";
                 List<string[]> filmResults = GetQueryResults(filmQuery);
                 foreach (string[] filmResult in filmResults)
-                    actor.Add(new Film(filmResult[1]));
+                {
+                    int.TryParse(filmResult[0], out int filmId);
+                    actor.Add(new Film(filmId, filmResult[1]));
+                }
             }
         }
         public List<Actor> GetActorsAndFilmsByActorFirstName(string firstName)
