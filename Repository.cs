@@ -61,7 +61,7 @@ namespace ADOnetSakilaKoppling
                 Actor actor = new Actor(actorResult[1], actorResult[2]);
                 if (actorCounter > 0 && actorCounter % 4 == 0)
                     output.WriteLine();
-                // Note: Max actor full name length is 19
+                // Note: Max actorResult full name length is 19
                 output.Write($"{actor.FullName, -20}");
                 actorCounter++;
             }
@@ -69,24 +69,26 @@ namespace ADOnetSakilaKoppling
         }
         public void ShowActorsAndTheirFilms(string actorQuery)
         {
-            foreach (string[] actor in GetQueryResults(actorQuery))
+            foreach (string[] actorResult in GetQueryResults(actorQuery))
             {
-                int.TryParse(actor[0], out int actorId);
+                Actor actor = new Actor(actorResult[1], actorResult[2]);
+                int.TryParse(actorResult[0], out int actorId);
                 string filmQuery = "SELECT * FROM film " +
                     "INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
                     "INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
                     "WHERE actor.actor_id = " + actorId;
-                List<string[]> filmList = GetQueryResults(filmQuery);
+                List<string[]> filmResults = GetQueryResults(filmQuery);
 
-                output.WriteSubtitle($"{filmList.Count} filmer med {actor[1]} {actor[2]}");
+                output.WriteSubtitle($"{filmResults.Count} filmer med {actor.FullName}");
                 int filmCounter = 0;
-                foreach (string[] film in filmList)
+                foreach (string[] filmResult in filmResults)
                 {
+                    Film film = new Film(filmResult[1]);
                     if (filmCounter > 0 &&  filmCounter % 3 == 0)
                         output.WriteLine();
-                    // Note: Max film name length is 27
-                    string filmTitle = film[1];
-                    output.Write($"{filmTitle, -28}");
+                    // Note: Max filmResult name length is 27
+                    output.Write($"{film.Title, -28}");
+                    actor.Add(film);
                     filmCounter++;
                 }
                 output.WriteLine();
