@@ -53,19 +53,12 @@ namespace ADOnetSakilaKoppling
             }
             return results;
         }
-        public void ShowActors(string actorQuery)
+        public List<Actor> GetActors(string actorQuery)
         {
-            int actorCounter = 0;
+            List<Actor> actors = new List<Actor>();
             foreach (string[] actorResult in GetQueryResults(actorQuery))
-            {
-                Actor actor = new Actor(actorResult[1], actorResult[2]);
-                if (actorCounter > 0 && actorCounter % 4 == 0)
-                    output.WriteLine();
-                // Note: Max actorResult full name length is 19
-                output.Write($"{actor.FullName, -20}");
-                actorCounter++;
-            }
-            output.WriteLine();
+                actors.Add(new Actor(actorResult[1], actorResult[2]));
+            return actors;
         }
         public void ShowActorsAndTheirFilms(string actorQuery)
         {
@@ -106,9 +99,9 @@ namespace ADOnetSakilaKoppling
         {
             ShowActorsAndTheirFilms($"SELECT * FROM actor WHERE first_name LIKE '{firstName}' AND last_name LIKE '{lastName}'");
         }
-        public void ShowActorList()
+        public List<Actor> GetAllActors()
         {
-            ShowActors($"SELECT * FROM actor");
+            return GetActors($"SELECT * FROM actor");
         }
     }
 }

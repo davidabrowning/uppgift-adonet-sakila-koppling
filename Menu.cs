@@ -87,7 +87,15 @@ namespace ADOnetSakilaKoppling
         private void ListAllActors()
         {
             output.WriteSubtitle("Listar ut alla skådespelare");
-            repository.ShowActorList();
+            int actorCounter = 0;
+            foreach (Actor actor in repository.GetAllActors())
+            {
+                if (actorCounter > 0 && actorCounter % 4 == 0)
+                    output.WriteLine();                
+                output.Write($"{actor.FullName,-20}"); // Note: Max actorResult full name length is 19
+                actorCounter++;
+            }
+            output.WriteLine();
             output.ConfirmContinue();
         }
         private void ShowGoodbye()
