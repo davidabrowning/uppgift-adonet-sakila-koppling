@@ -16,6 +16,10 @@ namespace ADOnetSakilaKoppling
         {
             Console.WriteLine(text);
         }
+        public void WriteLine()
+        {
+            WriteLine("");
+        }
         public void Write(string text)
         {
             Console.Write(text);

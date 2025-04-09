@@ -40,11 +40,17 @@ namespace ADOnetSakilaKoppling
         }
         public void ShowActors(string actorQuery)
         {
-            int actorCounter = 1;
+            int actorCounter = 0;
             foreach (string[] actor in GetQueryResults(actorQuery))
             {
-                output.WriteLine($"{actorCounter++}. {actor[1]} {actor[2]}");
+                if (actorCounter > 0 && actorCounter % 4 == 0)
+                    output.WriteLine();
+                // Note: Max actor full name length is 19
+                string actorFullName = $"{actor[1]} {actor[2]}";
+                output.Write($"{actorFullName, -20}");
+                actorCounter++;
             }
+            output.WriteLine();
         }
         public void ShowActorsAndTheirFilms(string actorQuery)
         {
@@ -58,11 +64,17 @@ namespace ADOnetSakilaKoppling
                 List<string[]> filmList = GetQueryResults(filmQuery);
 
                 output.WriteSubtitle($"{filmList.Count} filmer med {actor[1]} {actor[2]}");
-                int filmCounter = 1;
+                int filmCounter = 0;
                 foreach (string[] film in filmList)
                 {
-                    output.WriteLine($"{filmCounter++}. {film[1]}");
+                    if (filmCounter > 0 &&  filmCounter % 3 == 0)
+                        output.WriteLine();
+                    // Note: Max film name length is 27
+                    string filmTitle = film[1];
+                    output.Write($"{filmTitle, -28}");
+                    filmCounter++;
                 }
+                output.WriteLine();
             }
         }
         public void ShowMoviesByActorFirstName(string firstName)
