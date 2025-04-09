@@ -18,24 +18,25 @@ namespace ADOnetSakilaKoppling
         {
             List<string[]> results = new List<string[]>();
 
-            var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-            var command = new SqlCommand(query, connection);
-            connection.Open();
-            var result = command.ExecuteReader();
-            if (result.HasRows)
+            using (var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Sakila;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"))
             {
-                while (result.Read())
+                var command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteReader();
+                if (result.HasRows)
                 {
-                    string[] newResult = new string[result.FieldCount];
-                    for (int i = 0; i < result.FieldCount; i++)
+                    while (result.Read())
                     {
-                        newResult[i] = result[i].ToString();
+                        string[] newResult = new string[result.FieldCount];
+                        for (int i = 0; i < result.FieldCount; i++)
+                        {
+                            newResult[i] = result[i].ToString();
+                        }
+                        results.Add(newResult);
                     }
-                    results.Add(newResult);
                 }
+                connection.Close();
             }
-            connection.Close();
-
             return results;
         }
         public void ShowActors(string actorQuery)
