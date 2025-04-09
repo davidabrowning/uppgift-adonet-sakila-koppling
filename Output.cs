@@ -22,6 +22,7 @@ namespace ADOnetSakilaKoppling
         }
         public void WriteTitle(string text)
         {
+            Clear();
             WriteLine($"=== {text} ===");
         }
         public void WriteSubtitle(string text)
