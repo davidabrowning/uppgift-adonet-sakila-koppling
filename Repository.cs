@@ -23,14 +23,14 @@ namespace ADOnetSakilaKoppling
                 {
                     foreach (string[] parameter in parameters)
                         command.Parameters.AddWithValue(parameter[0], parameter[1]);
-                    using (var result = command.ExecuteReader())
+                    using (var sqlReader = command.ExecuteReader())
                     {
-                        while (result.Read())
+                        while (sqlReader.Read())
                         {
-                            string[] newResult = new string[result.FieldCount];
-                            for (int i = 0; i < result.FieldCount; i++)
-                                newResult[i] = result[i].ToString() ?? "empty";
-                            results.Add(newResult);
+                            string[] result = new string[sqlReader.FieldCount];
+                            for (int i = 0; i < sqlReader.FieldCount; i++)
+                                result[i] = sqlReader[i].ToString() ?? "empty";
+                            results.Add(result);
                         }
                     }
                 }
