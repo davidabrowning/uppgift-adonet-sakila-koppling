@@ -16,7 +16,7 @@ namespace ADOnetSakilaKoppling
             List<string[]> results = new List<string[]>();
             string databaseConnectionString = GetConnectionString();
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(databaseConnectionString))
             {
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
