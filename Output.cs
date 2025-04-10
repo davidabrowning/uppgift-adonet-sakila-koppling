@@ -12,6 +12,7 @@ namespace ADOnetSakilaKoppling
         public void Clear()
         {
             Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor= defaultColor;
             Console.Clear();
             
         }

@@ -118,7 +118,10 @@ namespace ADOnetSakilaKoppling
         }
         private void ShowGoodbye()
         {
+            output.Clear();
             output.WriteLine("Tack och hej då!");
+            output.ConfirmContinue();
+            output.Clear();
         }
     }
 }
