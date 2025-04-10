@@ -135,12 +135,14 @@ namespace ADOnetSakilaKoppling
             PopulateFilmLists(actors);
             return actors;
         }
-        public List<Actor> GetActorsAndFilmsByActorLastName(string lastName)
+        public List<Actor> GetActorsAndFilmsByActorLastNameWithParameters(string lastName)
         {
-            List<Actor> actors = GetActors(
+            List<string[]> parameters = new List<string[]>();
+            parameters.Add(["@lastName", lastName]);
+            List<Actor> actors = GetActorsWithParameters(
                 $"SELECT * FROM actor " +
-                $"WHERE last_name = '{lastName}' " +
-                $"ORDER BY first_name ASC, last_name ASC");
+                $"WHERE last_name = @lastName " +
+                $"ORDER BY first_name ASC, last_name ASC", parameters);
             PopulateFilmLists(actors);
             return actors;
         }
