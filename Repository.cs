@@ -11,12 +11,12 @@ namespace ADOnetSakilaKoppling
 {
     internal class Repository
     {
-        public List<string[]> GetQueryResultsWithoutParameters(string query)
+        private List<string[]> GetQueryResults(string query)
         {
             List<string[]> emptyParameterList = new List<string[]>();
             return GetQueryResults(query, emptyParameterList);
         }
-        public List<string[]> GetQueryResults(string query, List<string[]> parameters)
+        private List<string[]> GetQueryResults(string query, List<string[]> parameters)
         {
             List<string[]> results = new List<string[]>();
 
@@ -55,17 +55,17 @@ namespace ADOnetSakilaKoppling
             }
             return results;
         }
-        public List<Actor> GetActors(string actorQuery)
+        private List<Actor> GetActors(string actorQuery)
         {
             List<Actor> actors = new List<Actor>();
-            foreach (string[] actorResult in GetQueryResultsWithoutParameters(actorQuery))
+            foreach (string[] actorResult in GetQueryResults(actorQuery))
             {
                 int.TryParse(actorResult[0], out int actorId);
                 actors.Add(new Actor(actorId, actorResult[1], actorResult[2]));
             }                
             return actors;
         }
-        public List<Actor> GetActorsWithParameters(string actorQuery, List<string[]> parameters)
+        private List<Actor> GetActorsWithParameters(string actorQuery, List<string[]> parameters)
         {
             List<Actor> actors = new List<Actor>();
             foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
@@ -75,16 +75,18 @@ namespace ADOnetSakilaKoppling
             }
             return actors;
         }
-        public void PopulateFilmLists(List<Actor> actors)
+        private void PopulateFilmLists(List<Actor> actors)
         {
             foreach (Actor actor in actors)
             {
+                List<string[]> parameters = new List<string[]>();
+                parameters.Add(["@actorId", actor.ActorId.ToString()]);
                 string filmQuery = 
                     $"SELECT * FROM film " +
                     $"INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
                     $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
-                    $"WHERE actor.actor_id = {actor.ActorId}";
-                List<string[]> filmResults = GetQueryResultsWithoutParameters(filmQuery);
+                    $"WHERE actor.actor_id = @actorId";
+                List<string[]> filmResults = GetQueryResults(filmQuery, parameters);
                 foreach (string[] filmResult in filmResults)
                 {
                     int.TryParse(filmResult[0], out int filmId);
