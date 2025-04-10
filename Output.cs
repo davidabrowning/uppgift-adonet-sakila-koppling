@@ -19,37 +19,24 @@ namespace ADOnetSakilaKoppling
         public void Write(string text, ConsoleColor textColor)
         {
             Console.ForegroundColor = textColor;
-            Console.Write(text);
+            Console.Write("\t" + text);
         }
-        public void Write(string text)
-        {
-            Write(text, defaultColor);
-        }
-        public void WriteLine(string text, ConsoleColor textColor)
-        {
-            Write(text + "\n", textColor);
-        }
-        public void WriteLine(string text)
-        {
-            WriteLine(text, defaultColor);
-        }
-        public void WriteLine()
-        {
-            WriteLine("");
-        }
+        public void Write(string text) => Write(text, defaultColor);
+        public void WriteLine(string text, ConsoleColor textColor) => Write(text + "\n", textColor);
+        public void WriteLine(string text) => WriteLine(text, defaultColor);
+        public void WriteLine() => WriteLine("");
+        public void WritePrompt(string text) => Write(text + " ", ConsoleColor.DarkGreen);
+        public void WriteWarning(string text) => WriteLine(text, ConsoleColor.DarkRed);
         public void WriteTitle(string text)
         {
             Clear();
-            WriteLine($"=== {text} ===");
+            WriteLine();
+            WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
         }
         public void WriteSubtitle(string text)
         {
             WriteLine();
-            WriteLine($"=== {text} ===", ConsoleColor.DarkYellow);
-        }
-        public void WritePrompt(string text)
-        {
-            Write(text + " ", ConsoleColor.DarkGreen);
+            WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
         }
         public void ConfirmContinue()
         {
