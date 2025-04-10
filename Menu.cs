@@ -94,8 +94,8 @@ namespace ADOnetSakilaKoppling
             {
                 if (filmCounter > 0 && filmCounter % 3 == 0)
                 {
-                    output.WriteLine();
                     output.Delay();
+                    output.WriteLine();
                 }                    
                 output.Write($"{film.Title,-28}"); // Note: Max film title length is 27
                 filmCounter++;
@@ -110,8 +110,8 @@ namespace ADOnetSakilaKoppling
             {
                 if (actorCounter > 0 && actorCounter % 4 == 0)
                 {
-                    output.WriteLine();
                     output.Delay();
+                    output.WriteLine();
                 }
                 output.Write($"{actor.FullName,-20}"); // Note: Max actor full name length is 19
                 actorCounter++;
