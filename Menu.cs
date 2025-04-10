@@ -9,30 +9,27 @@ namespace ADOnetSakilaKoppling
 {
     internal class Menu
     {
+        private bool running;
         private readonly Input input;
         private readonly Output output;
         private readonly Repository repository;
         public Menu(Input input, Output output, Repository repository)
         {
+            this.running = true;
             this.input = input;
             this.output = output;
             this.repository = repository;
         }
         public void Start()
         {
-            ShowMainMenu();
+            while (running)
+            {
+                ShowMainMenu();
+                HandleMainMenuSelection();
+            }
             ShowGoodbye();
         }
         private void ShowMainMenu()
-        {
-            bool showMainMenu = true;
-            while (showMainMenu)
-            {
-                ShowMainMenuOptions();
-                HandleMainMenuSelection(ref showMainMenu);
-            }
-        }
-        private void ShowMainMenuOptions()
         {
             output.WriteTitle("Huvudmeny");
             output.WriteLine("1. Sök filmer enligt skådespelarens förnamn");
@@ -42,7 +39,7 @@ namespace ADOnetSakilaKoppling
             output.WriteLine("5. Avsluta programmet");
             output.WriteLine();
         }
-        private void HandleMainMenuSelection(ref bool showMainMenu)
+        private void HandleMainMenuSelection()
         {
             switch (input.GetString("Ditt val:"))
             {
@@ -59,7 +56,7 @@ namespace ADOnetSakilaKoppling
                     ListAllActors();
                     break;
                 case "5":
-                    showMainMenu = false;
+                    running = false;
                     break;
                 default:
                     output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
