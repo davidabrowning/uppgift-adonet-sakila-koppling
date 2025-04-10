@@ -15,5 +15,10 @@ namespace ADOnetSakilaKoppling
             FilmId = filmId;
             Title = title;
         }
+
+        public override string? ToString()
+        {
+            return Title;
+        }
     }
 }

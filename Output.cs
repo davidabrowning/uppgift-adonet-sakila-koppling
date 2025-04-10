@@ -8,11 +8,11 @@ namespace ADOnetSakilaKoppling
 {
     internal class Output
     {
-        const ConsoleColor defaultColor = ConsoleColor.Black;
+        const ConsoleColor DefaultColor = ConsoleColor.Black;
         public void Clear()
         {
             Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor= defaultColor;
+            Console.ForegroundColor= DefaultColor;
             Console.Clear();
             
         }
@@ -21,9 +21,9 @@ namespace ADOnetSakilaKoppling
             Console.ForegroundColor = textColor;
             Console.Write("\t" + text);
         }
-        public void Write(string text) => Write(text, defaultColor);
+        public void Write(string text) => Write(text, DefaultColor);
         public void WriteLine(string text, ConsoleColor textColor) => Write(text + "\n", textColor);
-        public void WriteLine(string text) => WriteLine(text, defaultColor);
+        public void WriteLine(string text) => WriteLine(text, DefaultColor);
         public void WriteLine() => WriteLine("");
         public void WritePrompt(string text) => Write(text + " ", ConsoleColor.DarkGreen);
         public void WriteWarning(string text) => WriteLine(text, ConsoleColor.DarkRed);
@@ -44,5 +44,6 @@ namespace ADOnetSakilaKoppling
             WriteLine("Tryck ENTER för att fortsätta.", ConsoleColor.DarkGreen);
             Console.ReadLine();
         }
+        public void Delay() => Thread.Sleep(50);
     }
 }

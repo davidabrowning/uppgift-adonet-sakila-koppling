@@ -8,14 +8,14 @@ namespace ADOnetSakilaKoppling
 {
     internal class Input
     {
-        private readonly Output output;
+        private readonly Output _output;
         public Input(Output output)
         {
-            this.output = output;
+            _output = output;
         }
         public string GetString(string prompt)
         {
-            output.WritePrompt(prompt);
+            _output.WritePrompt(prompt);
             return Console.ReadLine().Trim();
         }
     }

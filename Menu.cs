@@ -9,42 +9,41 @@ namespace ADOnetSakilaKoppling
 {
     internal class Menu
     {
-        private readonly Input input;
-        private readonly Output output;
-        private readonly Repository repository;
+        private const int ActorsPerColumn = 4;
+        private const int FilmsPerColumn = 3;
+        private bool _running;
+        private readonly Input _input;
+        private readonly Output _output;
+        private readonly Repository _repository;
         public Menu(Input input, Output output, Repository repository)
         {
-            this.input = input;
-            this.output = output;
-            this.repository = repository;
+            _running = true;
+            _input = input;
+            _output = output;
+            _repository = repository;
         }
         public void Start()
         {
-            ShowMainMenu();
+            while (_running)
+            {
+                ShowMainMenu();
+                HandleMainMenuSelection();
+            }
             ShowGoodbye();
         }
         private void ShowMainMenu()
         {
-            bool showMainMenu = true;
-            while (showMainMenu)
-            {
-                ShowMainMenuOptions();
-                HandleMainMenuSelection(ref showMainMenu);
-            }
+            _output.WriteTitle("Huvudmeny");
+            _output.WriteLine("1. Sök filmer enligt skådespelarens förnamn");
+            _output.WriteLine("2. Sök filmer enligt skådespelarens efternamn");
+            _output.WriteLine("3. Sök filmer enligt både förnamn och efternamn");
+            _output.WriteLine("4. Lista ut alla skådespelare");
+            _output.WriteLine("5. Avsluta programmet");
+            _output.WriteLine();
         }
-        private void ShowMainMenuOptions()
+        private void HandleMainMenuSelection()
         {
-            output.WriteTitle("Huvudmeny");
-            output.WriteLine("1. Sök filmer enligt skådespelarens förnamn");
-            output.WriteLine("2. Sök filmer enligt skådespelarens efternamn");
-            output.WriteLine("3. Sök filmer enligt både förnamn och efternamn");
-            output.WriteLine("4. Lista ut alla skådespelare");
-            output.WriteLine("5. Avsluta programmet");
-            output.WriteLine();
-        }
-        private void HandleMainMenuSelection(ref bool showMainMenu)
-        {
-            switch (input.GetString("Ditt val:"))
+            switch (_input.GetString("Ditt val:"))
             {
                 case "1":
                     ShowMoviesByFirstName();
@@ -59,70 +58,53 @@ namespace ADOnetSakilaKoppling
                     ListAllActors();
                     break;
                 case "5":
-                    showMainMenu = false;
+                    _running = false;
                     break;
                 default:
-                    output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
-                    output.ConfirmContinue();
+                    _output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
+                    _output.ConfirmContinue();
                     break;
             }
         }
         private void ShowMoviesByFirstName()
         {
-            string firstName = input.GetString("Ange förnamn:");
-            foreach (Actor actor in repository.GetActorsByFirstName(firstName))
+            string firstName = _input.GetString("Ange förnamn:");
+            foreach (Actor actor in _repository.GetActorsByFirstName(firstName))
                 ShowActorMovies(actor);
-            output.ConfirmContinue();
+            _output.ConfirmContinue();
         }
         private void ShowMoviesByLastName()
         {
-            string lastName = input.GetString("Ange efternamn:");
-            foreach (Actor actor in repository.GetActorsByLastName(lastName))
+            string lastName = _input.GetString("Ange efternamn:");
+            foreach (Actor actor in _repository.GetActorsByLastName(lastName))
                 ShowActorMovies(actor);
-            output.ConfirmContinue();
+            _output.ConfirmContinue();
         }
         private void ShowMoviesByFullName()
         {
-            string firstName = input.GetString("Ange förnamn:");
-            string lastName = input.GetString("Ange efternamn:");
-            foreach (Actor actor in repository.GetActorsByFullName(firstName, lastName))
+            string firstName = _input.GetString("Ange förnamn:");
+            string lastName = _input.GetString("Ange efternamn:");
+            foreach (Actor actor in _repository.GetActorsByFullName(firstName, lastName))
                 ShowActorMovies(actor);
-            output.ConfirmContinue();
+            _output.ConfirmContinue();
         }
         private void ShowActorMovies(Actor actor)
         {
-            output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
-            int filmCounter = 0;
-            foreach (Film film in actor.Films)
-            {
-                if (filmCounter > 0 && filmCounter % 3 == 0)
-                    output.WriteLine();
-                output.Write($"{film.Title,-28}"); // Note: Max film title length is 27
-                filmCounter++;
-            }
-            output.WriteLine();
+            _output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
+            MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn);
         }
         private void ListAllActors()
         {
-            output.WriteSubtitle("Listar ut alla skådespelare");
-            int actorCounter = 0;
-            foreach (Actor actor in repository.GetAllActors())
-            {
-                if (actorCounter > 0 && actorCounter % 4 == 0)
-                    output.WriteLine();                
-                output.Write($"{actor.FullName,-20}"); // Note: Max actor full name length is 19
-                actorCounter++;
-            }
-            output.WriteLine();
-            output.ConfirmContinue();
+            _output.WriteSubtitle("Listar ut alla skådespelare");
+            MenuHelper.PrintList<Actor>(_output, _repository.GetAllActors(), ActorsPerColumn);
+            _output.ConfirmContinue();
         }
         private void ShowGoodbye()
         {
-            output.Clear();
-            output.WriteTitle("Programmet avslutas");
-            output.WriteLine("Tack och hej då!");
-            output.ConfirmContinue();
-            output.Clear();
+            _output.WriteTitle("Programmet avslutas");
+            _output.WriteLine("Tack och hej då!");
+            _output.ConfirmContinue();
+            _output.Clear();
         }
     }
 }
