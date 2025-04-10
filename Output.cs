@@ -31,12 +31,12 @@ namespace ADOnetSakilaKoppling
         {
             Clear();
             WriteLine();
-            WriteLine($"=== {text} ===");
+            WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
         }
         public void WriteSubtitle(string text)
         {
             WriteLine();
-            WriteLine($"=== {text} ===", ConsoleColor.DarkBlue);
+            WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
         }
         public void ConfirmContinue()
         {
