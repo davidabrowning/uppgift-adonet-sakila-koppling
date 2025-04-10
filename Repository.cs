@@ -51,18 +51,7 @@ namespace ADOnetSakilaKoppling
             }
             return results;
         }
-        private List<Actor> GetActors(string actorQuery)
-        {
-            List<Actor> actors = new List<Actor>();
-            List<string[]> parameters = new List<string[]>();
-            foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
-            {
-                int.TryParse(actorResult[0], out int actorId);
-                actors.Add(new Actor(actorId, actorResult[1], actorResult[2]));
-            }                
-            return actors;
-        }
-        private List<Actor> GetActorsWithParameters(string actorQuery, List<string[]> parameters)
+        private List<Actor> GetActors(string actorQuery, List<string[]> parameters)
         {
             List<Actor> actors = new List<Actor>();
             foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
@@ -91,34 +80,34 @@ namespace ADOnetSakilaKoppling
                 }
             }
         }
-        public List<Actor> GetActorsAndFilmsByActorFirstNameWithParameters(string firstName)
+        public List<Actor> GetActorsByFirstName(string firstName)
         {
             List<string[]> parameters = new List<string[]>();
             parameters.Add(["@firstName", firstName]);
-            List<Actor> actors = GetActorsWithParameters(
+            List<Actor> actors = GetActors(
                 $"SELECT * FROM actor " +
                 $"WHERE first_name = @firstName " +
                 $"ORDER BY first_name ASC, last_name ASC", parameters);
             PopulateFilmLists(actors);
             return actors;
         }
-        public List<Actor> GetActorsAndFilmsByActorLastNameWithParameters(string lastName)
+        public List<Actor> GetActorsByLastName(string lastName)
         {
             List<string[]> parameters = new List<string[]>();
             parameters.Add(["@lastName", lastName]);
-            List<Actor> actors = GetActorsWithParameters(
+            List<Actor> actors = GetActors(
                 $"SELECT * FROM actor " +
                 $"WHERE last_name = @lastName " +
                 $"ORDER BY first_name ASC, last_name ASC", parameters);
             PopulateFilmLists(actors);
             return actors;
         }
-        public List<Actor> GetActorsAndFilmsByActorFullName(string firstName, string lastName)
+        public List<Actor> GetActorsByFullName(string firstName, string lastName)
         {
             List<string[]> parameters = new List<string[]>();
             parameters.Add(["@firstName", firstName]);
             parameters.Add(["@lastName", lastName]);
-            List<Actor> actors = GetActorsWithParameters(
+            List<Actor> actors = GetActors(
                 $"SELECT * FROM actor " +
                 $"WHERE first_name = @firstName " +
                 $"AND last_name = @lastName " +
@@ -128,9 +117,10 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetAllActors()
         {
+            List<string[]> emptyParameterList = new List<string[]>();
             return GetActors(
                 $"SELECT * FROM actor " +
-                $"ORDER BY first_name ASC, last_name ASC");
+                $"ORDER BY first_name ASC, last_name ASC", emptyParameterList);
         }
     }
 }
