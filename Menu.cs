@@ -88,21 +88,28 @@ namespace ADOnetSakilaKoppling
                 ShowActorMovies(actor);
             _output.ConfirmContinue();
         }
-        private void ShowActorMovies(Actor actor)
+        private void PrintList<T>(List<T> items, int itemsPerColumn)
         {
-            _output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
-            int filmCounter = 0;
-            foreach (Film film in actor.Films)
+            int maxLength = MaxLength(items) + 1;
+            for (int i = 0; i < items.Count; i++)
             {
-                if (filmCounter > 0 && filmCounter % FilmsPerColumn == 0)
+                if (i > 0 && i % itemsPerColumn == 0)
                 {
                     _output.Delay();
                     _output.WriteLine();
-                }                    
-                _output.Write($"{film.Title,-28}"); // Note: Max film title length is 27
-                filmCounter++;
+                }
+                _output.Write($"{items[i].ToString().PadRight(maxLength)}");
             }
             _output.WriteLine();
+        }
+        private int MaxLength<T>(List<T> items)
+        {
+            return items.Max(i => i.ToString().Length);
+        }
+        private void ShowActorMovies(Actor actor)
+        {
+            _output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
+            PrintList<Film>(actor.Films, FilmsPerColumn);
         }
         private void ListAllActors()
         {

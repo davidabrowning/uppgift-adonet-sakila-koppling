@@ -24,5 +24,9 @@ namespace ADOnetSakilaKoppling
         {
             Films.Add(film);
         }
+        public override string? ToString()
+        {
+            return FullName;
+        }
     }
 }
