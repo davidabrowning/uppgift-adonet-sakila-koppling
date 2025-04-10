@@ -11,11 +11,6 @@ namespace ADOnetSakilaKoppling
 {
     internal class Repository
     {
-        private List<string[]> GetQueryResults(string query)
-        {
-            List<string[]> emptyParameterList = new List<string[]>();
-            return GetQueryResults(query, emptyParameterList);
-        }
         private List<string[]> GetQueryResults(string query, List<string[]> parameters)
         {
             List<string[]> results = new List<string[]>();
@@ -58,7 +53,8 @@ namespace ADOnetSakilaKoppling
         private List<Actor> GetActors(string actorQuery)
         {
             List<Actor> actors = new List<Actor>();
-            foreach (string[] actorResult in GetQueryResults(actorQuery))
+            List<string[]> parameters = new List<string[]>();
+            foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
             {
                 int.TryParse(actorResult[0], out int actorId);
                 actors.Add(new Actor(actorId, actorResult[1], actorResult[2]));
