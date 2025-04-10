@@ -10,7 +10,7 @@ namespace ADOnetSakilaKoppling
     {
         public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn)
         {
-            int maxLength = MaxLength(items) + 1;
+            int targetLength = MaxLength(items) + 1;
             for (int i = 0; i < items.Count; i++)
             {
                 if (i > 0 && i % itemsPerColumn == 0)
@@ -18,7 +18,7 @@ namespace ADOnetSakilaKoppling
                     output.Delay();
                     output.WriteLine();
                 }
-                output.Write($"{items[i].ToString().PadRight(maxLength)}");
+                output.Write($"{items[i].ToString().PadRight(targetLength)}");
             }
             output.WriteLine();
         }
