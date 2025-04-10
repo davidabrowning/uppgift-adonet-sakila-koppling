@@ -71,22 +71,19 @@ namespace ADOnetSakilaKoppling
             string firstName = _input.GetString("Ange förnamn:");
             List<Actor> actors = _repository.GetActorsByFirstName(firstName);
             PrintFilmographies(actors);
-            _output.ConfirmContinue();
         }
         private void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString("Ange efternamn:");
-            foreach (Actor actor in _repository.GetActorsByLastName(lastName))
-                PrintFilmography(actor);
-            _output.ConfirmContinue();
+            List<Actor> actors = _repository.GetActorsByLastName(lastName);
+            PrintFilmographies(actors);
         }
         private void PrintFilmographiesByFullName()
         {
             string firstName = _input.GetString("Ange förnamn:");
             string lastName = _input.GetString("Ange efternamn:");
-            foreach (Actor actor in _repository.GetActorsByFullName(firstName, lastName))
-                PrintFilmography(actor);
-            _output.ConfirmContinue();
+            List<Actor> actors = _repository.GetActorsByFullName(firstName, lastName);
+            PrintFilmographies(actors);
         }
         private void PrintFilmographies(List<Actor> actors)
         {
@@ -95,6 +92,7 @@ namespace ADOnetSakilaKoppling
                     PrintFilmography(actor);
             else
                 _output.WriteWarning("Inga skådespelare hittades. Försök igen.");
+            _output.ConfirmContinue();
         }
         private void PrintFilmography(Actor actor)
         {
