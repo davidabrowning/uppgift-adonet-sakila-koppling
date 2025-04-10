@@ -36,7 +36,7 @@ namespace ADOnetSakilaKoppling
         public void WriteSubtitle(string text)
         {
             WriteLine();
-            WriteLine($"=== {text} ===", ConsoleColor.DarkYellow);
+            WriteLine($"=== {text} ===", ConsoleColor.DarkBlue);
         }
         public void ConfirmContinue()
         {
