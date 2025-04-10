@@ -70,7 +70,7 @@ namespace ADOnetSakilaKoppling
         private void ShowMoviesByFirstName()
         {
             string firstName = input.GetString("Ange förnamn:");
-            foreach (Actor actor in repository.GetActorsAndFilmsByActorFirstName(firstName))
+            foreach (Actor actor in repository.GetActorsAndFilmsByActorFirstNameWithParameters(firstName))
                 ShowActorMovies(actor);
             output.ConfirmContinue();
         }

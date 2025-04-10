@@ -48,6 +48,45 @@ namespace ADOnetSakilaKoppling
             }
             return results;
         }
+        public List<string[]> GetQueryResults(string query, List<string[]> parameters)
+        {
+            List<string[]> results = new List<string[]>();
+
+            string appsettings = File.ReadAllText("Appsettings.json");
+            JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
+            string connectionString = appsettingsJson
+                .RootElement
+                .GetProperty("ConnectionStrings")
+                .GetProperty("Sakila")
+                .ToString();
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(query, connection))
+                {
+                    foreach (string[] parameter in parameters)
+                        command.Parameters.AddWithValue(parameter[0], parameter[1]);
+                    using (var result = command.ExecuteReader())
+                    {
+                        if (result.HasRows)
+                        {
+                            while (result.Read())
+                            {
+                                string[] newResult = new string[result.FieldCount];
+                                for (int i = 0; i < result.FieldCount; i++)
+                                {
+                                    newResult[i] = result[i].ToString();
+                                }
+                                results.Add(newResult);
+                            }
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return results;
+        }
         public List<Actor> GetActors(string actorQuery)
         {
             List<Actor> actors = new List<Actor>();
@@ -56,6 +95,16 @@ namespace ADOnetSakilaKoppling
                 int.TryParse(actorResult[0], out int actorId);
                 actors.Add(new Actor(actorId, actorResult[1], actorResult[2]));
             }                
+            return actors;
+        }
+        public List<Actor> GetActorsWithParameters(string actorQuery, List<string[]> parameters)
+        {
+            List<Actor> actors = new List<Actor>();
+            foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
+            {
+                int.TryParse(actorResult[0], out int actorId);
+                actors.Add(new Actor(actorId, actorResult[1], actorResult[2]));
+            }
             return actors;
         }
         public void PopulateFilmLists(List<Actor> actors)
@@ -75,12 +124,14 @@ namespace ADOnetSakilaKoppling
                 }
             }
         }
-        public List<Actor> GetActorsAndFilmsByActorFirstName(string firstName)
+        public List<Actor> GetActorsAndFilmsByActorFirstNameWithParameters(string firstName)
         {
-            List<Actor> actors = GetActors(
+            List<string[]> parameters = new List<string[]>();
+            parameters.Add(["@firstName", firstName]);
+            List<Actor> actors = GetActorsWithParameters(
                 $"SELECT * FROM actor " +
-                $"WHERE first_name = '{firstName}' " +
-                $"ORDER BY first_name ASC, last_name ASC");
+                $"WHERE first_name = @firstName " +
+                $"ORDER BY first_name ASC, last_name ASC", parameters);
             PopulateFilmLists(actors);
             return actors;
         }
