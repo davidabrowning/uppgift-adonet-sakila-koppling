@@ -25,8 +25,7 @@ namespace ADOnetSakilaKoppling
         public void WriteLine(string text, ConsoleColor textColor) => Write(text + "\n", textColor);
         public void WriteLine(string text) => WriteLine(text, DefaultColor);
         public void WriteLine() => WriteLine("");
-        public void WritePrompt(string text) => Write(text + " ", ConsoleColor.DarkGreen);
-        public void WriteWarning(string text) => WriteLine(text, ConsoleColor.DarkRed);
+        public void WritePrompt(string text) => Write(text + " ", ConsoleColor.DarkBlue);
         public void WriteTitle(string text)
         {
             Clear();
@@ -38,10 +37,15 @@ namespace ADOnetSakilaKoppling
             WriteLine();
             WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
         }
+        public void WriteWarning(string text)
+        {
+            WriteLine();
+            WriteLine(text, ConsoleColor.DarkRed);
+        }
         public void ConfirmContinue()
         {
             WriteLine();
-            WriteLine("Tryck ENTER för att fortsätta.", ConsoleColor.DarkGreen);
+            WriteLine("Tryck ENTER för att fortsätta.", ConsoleColor.DarkBlue);
             Console.ReadLine();
         }
         public void Delay() => Thread.Sleep(50);

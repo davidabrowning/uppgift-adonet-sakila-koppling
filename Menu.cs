@@ -46,16 +46,16 @@ namespace ADOnetSakilaKoppling
             switch (_input.GetString("Ditt val:"))
             {
                 case "1":
-                    ShowMoviesByFirstName();
+                    ShowFilmographiesByFirstName();
                     break;
                 case "2":
-                    ShowMoviesByLastName();
+                    PrintFilmographiesByLastName();
                     break;
                 case "3":
-                    ShowMoviesByFullName();
+                    PrintFilmographiesByFullName();
                     break;
                 case "4":
-                    ListAllActors();
+                    PrintAllActorNames();
                     break;
                 case "5":
                     _running = false;
@@ -66,34 +66,40 @@ namespace ADOnetSakilaKoppling
                     break;
             }
         }
-        private void ShowMoviesByFirstName()
+        private void ShowFilmographiesByFirstName()
         {
             string firstName = _input.GetString("Ange förnamn:");
-            foreach (Actor actor in _repository.GetActorsByFirstName(firstName))
-                ShowActorMovies(actor);
-            _output.ConfirmContinue();
+            List<Actor> actors = _repository.GetActorsByFirstName(firstName);
+            PrintFilmographies(actors);
         }
-        private void ShowMoviesByLastName()
+        private void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString("Ange efternamn:");
-            foreach (Actor actor in _repository.GetActorsByLastName(lastName))
-                ShowActorMovies(actor);
-            _output.ConfirmContinue();
+            List<Actor> actors = _repository.GetActorsByLastName(lastName);
+            PrintFilmographies(actors);
         }
-        private void ShowMoviesByFullName()
+        private void PrintFilmographiesByFullName()
         {
             string firstName = _input.GetString("Ange förnamn:");
             string lastName = _input.GetString("Ange efternamn:");
-            foreach (Actor actor in _repository.GetActorsByFullName(firstName, lastName))
-                ShowActorMovies(actor);
+            List<Actor> actors = _repository.GetActorsByFullName(firstName, lastName);
+            PrintFilmographies(actors);
+        }
+        private void PrintFilmographies(List<Actor> actors)
+        {
+            if (actors.Count > 0)
+                foreach (Actor actor in actors)
+                    PrintFilmography(actor);
+            else
+                _output.WriteWarning("Inga skådespelare hittades. Försök igen.");
             _output.ConfirmContinue();
         }
-        private void ShowActorMovies(Actor actor)
+        private void PrintFilmography(Actor actor)
         {
             _output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
             MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn);
         }
-        private void ListAllActors()
+        private void PrintAllActorNames()
         {
             _output.WriteSubtitle("Listar ut alla skådespelare");
             MenuHelper.PrintList<Actor>(_output, _repository.GetAllActors(), ActorsPerColumn);
