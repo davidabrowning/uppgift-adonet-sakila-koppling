@@ -17,7 +17,8 @@ namespace ADOnetSakilaKoppling
 
             string appsettings = File.ReadAllText("Appsettings.json");
             JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
-            string connectionString = appsettingsJson
+            string connectionString = 
+                appsettingsJson
                 .RootElement
                 .GetProperty("ConnectionStrings")
                 .GetProperty("Sakila")
