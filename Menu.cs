@@ -62,7 +62,7 @@ namespace ADOnetSakilaKoppling
                     showMainMenu = false;
                     break;
                 default:
-                    output.WriteLine("Oväntad inmatning. Försök igen.");
+                    output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
                     output.ConfirmContinue();
                     break;
             }
@@ -119,6 +119,7 @@ namespace ADOnetSakilaKoppling
         private void ShowGoodbye()
         {
             output.Clear();
+            output.WriteTitle("Programmet avslutas");
             output.WriteLine("Tack och hej då!");
             output.ConfirmContinue();
             output.Clear();
