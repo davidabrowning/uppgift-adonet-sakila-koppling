@@ -9,6 +9,8 @@ namespace ADOnetSakilaKoppling
 {
     internal class Menu
     {
+        private const int ActorsPerColumn = 4;
+        private const int FilmsPerColumn = 3;
         private bool _running;
         private readonly Input _input;
         private readonly Output _output;
@@ -92,7 +94,7 @@ namespace ADOnetSakilaKoppling
             int filmCounter = 0;
             foreach (Film film in actor.Films)
             {
-                if (filmCounter > 0 && filmCounter % 3 == 0)
+                if (filmCounter > 0 && filmCounter % FilmsPerColumn == 0)
                 {
                     _output.Delay();
                     _output.WriteLine();
@@ -108,7 +110,7 @@ namespace ADOnetSakilaKoppling
             int actorCounter = 0;
             foreach (Actor actor in _repository.GetAllActors())
             {
-                if (actorCounter > 0 && actorCounter % 4 == 0)
+                if (actorCounter > 0 && actorCounter % ActorsPerColumn == 0)
                 {
                     _output.Delay();
                     _output.WriteLine();
