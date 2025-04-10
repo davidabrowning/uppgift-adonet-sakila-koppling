@@ -89,7 +89,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetActorsByLastName(string lastName)
         {
-            string actorQuery = $"SELECT * FROM actor " +
+            string actorQuery = 
+                $"SELECT * FROM actor " +
                 $"WHERE last_name = @lastName " +
                 $"ORDER BY first_name ASC, last_name ASC";
             List<string[]> parameters = new List<string[]>();
@@ -100,7 +101,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetActorsByFullName(string firstName, string lastName)
         {
-            string actorQuery = $"SELECT * FROM actor " +
+            string actorQuery = 
+                $"SELECT * FROM actor " +
                 $"WHERE first_name = @firstName " +
                 $"AND last_name = @lastName " +
                 $"ORDER BY first_name ASC, last_name ASC";
@@ -113,7 +115,8 @@ namespace ADOnetSakilaKoppling
         }
         public List<Actor> GetAllActors()
         {
-            string actorQuery = $"SELECT * FROM actor " +
+            string actorQuery = 
+                $"SELECT * FROM actor " +
                 $"ORDER BY first_name ASC, last_name ASC";
             List<string[]> emptyParameterList = new List<string[]>();
             return GetActors(actorQuery, emptyParameterList);
