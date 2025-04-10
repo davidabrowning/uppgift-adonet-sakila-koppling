@@ -88,44 +88,15 @@ namespace ADOnetSakilaKoppling
                 ShowActorMovies(actor);
             _output.ConfirmContinue();
         }
-        private void PrintList<T>(List<T> items, int itemsPerColumn)
-        {
-            int maxLength = MaxLength(items) + 1;
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (i > 0 && i % itemsPerColumn == 0)
-                {
-                    _output.Delay();
-                    _output.WriteLine();
-                }
-                _output.Write($"{items[i].ToString().PadRight(maxLength)}");
-            }
-            _output.WriteLine();
-        }
-        private int MaxLength<T>(List<T> items)
-        {
-            return items.Max(i => i.ToString().Length);
-        }
         private void ShowActorMovies(Actor actor)
         {
             _output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
-            PrintList<Film>(actor.Films, FilmsPerColumn);
+            MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn);
         }
         private void ListAllActors()
         {
             _output.WriteSubtitle("Listar ut alla skådespelare");
-            int actorCounter = 0;
-            foreach (Actor actor in _repository.GetAllActors())
-            {
-                if (actorCounter > 0 && actorCounter % ActorsPerColumn == 0)
-                {
-                    _output.Delay();
-                    _output.WriteLine();
-                }
-                _output.Write($"{actor.FullName,-20}"); // Note: Max actor full name length is 19
-                actorCounter++;
-            }
-            _output.WriteLine();
+            MenuHelper.PrintList<Actor>(_output, _repository.GetAllActors(), ActorsPerColumn);
             _output.ConfirmContinue();
         }
         private void ShowGoodbye()
