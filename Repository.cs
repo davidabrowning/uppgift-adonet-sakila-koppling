@@ -63,7 +63,8 @@ namespace ADOnetSakilaKoppling
             foreach (Actor actor in actors)
             {
                 string filmQuery = 
-                    $"SELECT * FROM film " +
+                    $"SELECT film.film_id, film.title " +
+                    $"FROM film " +
                     $"INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
                     $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
                     $"WHERE actor.actor_id = @actorId";
@@ -72,8 +73,9 @@ namespace ADOnetSakilaKoppling
                 List<string[]> filmResults = GetQueryResults(filmQuery, parameters);
                 foreach (string[] filmResult in filmResults)
                 {
-                    int.TryParse(filmResult[0], out int filmId);
-                    actor.Add(new Film(filmId, filmResult[1]));
+                    int filmId = int.Parse(filmResult[0]);
+                    string filmTitle = filmResult[1];
+                    actor.Add(new Film(filmId, filmTitle));
                 }
             }
         }
