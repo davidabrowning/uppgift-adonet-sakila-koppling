@@ -14,15 +14,7 @@ namespace ADOnetSakilaKoppling
         private List<string[]> GetQueryResults(string query, List<string[]> parameters)
         {
             List<string[]> results = new List<string[]>();
-
-            string appsettings = File.ReadAllText("Appsettings.json");
-            JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
-            string connectionString = 
-                appsettingsJson
-                .RootElement
-                .GetProperty("ConnectionStrings")
-                .GetProperty("Sakila")
-                .ToString();
+            string databaseConnectionString = GetConnectionString();
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -45,6 +37,18 @@ namespace ADOnetSakilaKoppling
                 connection.Close();
             }
             return results;
+        }
+        private string GetConnectionString()
+        {
+            string appsettings = File.ReadAllText("Appsettings.json");
+            JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
+            string connectionString =
+                appsettingsJson
+                .RootElement
+                .GetProperty("ConnectionStrings")
+                .GetProperty("Sakila")
+                .ToString();
+            return connectionString;
         }
         private List<Actor> GetActors(string actorQuery, List<string[]> parameters)
         {
