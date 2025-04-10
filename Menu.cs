@@ -69,8 +69,12 @@ namespace ADOnetSakilaKoppling
         private void ShowMoviesByFirstName()
         {
             string firstName = _input.GetString("Ange förnamn:");
-            foreach (Actor actor in _repository.GetActorsByFirstName(firstName))
-                ShowActorMovies(actor);
+            List<Actor> actors = _repository.GetActorsByFirstName(firstName);
+            if (actors.Count > 0)
+                foreach (Actor actor in _repository.GetActorsByFirstName(firstName))
+                    ShowActorMovies(actor);
+            else
+                _output.WriteWarning("Lyckades inte hitta skådespelare med detta namn. Försök igen.");
             _output.ConfirmContinue();
         }
         private void ShowMoviesByLastName()
