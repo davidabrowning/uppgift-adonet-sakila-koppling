@@ -115,7 +115,6 @@ namespace ADOnetSakilaKoppling
         }
         private void ShowGoodbye()
         {
-            output.Clear();
             output.WriteTitle("Programmet avslutas");
             output.WriteLine("Tack och hej då!");
             output.ConfirmContinue();
