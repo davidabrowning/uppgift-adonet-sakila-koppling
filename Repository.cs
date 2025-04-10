@@ -33,17 +33,14 @@ namespace ADOnetSakilaKoppling
                         command.Parameters.AddWithValue(parameter[0], parameter[1]);
                     using (var result = command.ExecuteReader())
                     {
-                        if (result.HasRows)
+                        while (result.Read())
                         {
-                            while (result.Read())
+                            string[] newResult = new string[result.FieldCount];
+                            for (int i = 0; i < result.FieldCount; i++)
                             {
-                                string[] newResult = new string[result.FieldCount];
-                                for (int i = 0; i < result.FieldCount; i++)
-                                {
-                                    newResult[i] = result[i].ToString();
-                                }
-                                results.Add(newResult);
+                                newResult[i] = result[i].ToString();
                             }
+                            results.Add(newResult);
                         }
                     }
                 }
