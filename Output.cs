@@ -44,5 +44,6 @@ namespace ADOnetSakilaKoppling
             WriteLine("Tryck ENTER för att fortsätta.", ConsoleColor.DarkGreen);
             Console.ReadLine();
         }
+        public void Delay() => Thread.Sleep(50);
     }
 }
