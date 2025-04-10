@@ -37,9 +37,7 @@ namespace ADOnetSakilaKoppling
                         {
                             string[] newResult = new string[result.FieldCount];
                             for (int i = 0; i < result.FieldCount; i++)
-                            {
-                                newResult[i] = result[i].ToString();
-                            }
+                                newResult[i] = result[i].ToString() ?? "empty";
                             results.Add(newResult);
                         }
                     }
