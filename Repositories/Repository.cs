@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling
+namespace ADOnetSakilaKoppling.Repositories
 {
     internal class Repository
     {

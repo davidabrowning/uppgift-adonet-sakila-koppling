@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ADOnetSakilaKoppling.Repositories;
+using ADOnetSakilaKoppling.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling
+namespace ADOnetSakilaKoppling.Services
 {
     internal class ProgramLauncher
     {
