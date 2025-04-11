@@ -62,6 +62,17 @@ namespace ADOnetSakilaKoppling
             }
             return actors;
         }
+        private List<Film> GetFilms(string filmQuery, List<string[]> parameters)
+        {
+            List<Film> films = new List<Film>();
+            foreach (string[] filmResult in  GetQueryResults(filmQuery, parameters))
+            {
+                int filmId = int.Parse(filmResult[0]);
+                string filmTitle = filmResult[1];
+                films.Add(new Film(filmId, filmTitle));
+            }
+            return films;
+        }
         private void PopulateFilmLists(List<Actor> actors)
         {
             foreach (Actor actor in actors)
@@ -132,6 +143,23 @@ namespace ADOnetSakilaKoppling
                 $"ORDER BY first_name ASC, last_name ASC";
             List<string[]> emptyParameterList = new List<string[]>();
             return GetActors(actorQuery, emptyParameterList);
+        }
+        public List<Film> GetAllFilms()
+        {
+            string filmQuery =
+                $"SELECT film_id, title " +
+                $"FROM film " +
+                $"ORDER BY title ASC";
+            List<string[]> emptyParameterList = new List<string[]>();
+            return GetFilms(filmQuery, emptyParameterList);
+        }
+        public int LongestActorName()
+        {
+            return GetAllActors().Max(a => a.FullName.Length);
+        }
+        public int LongestFilmTitle()
+        {
+            return GetAllFilms().Max(f => f.Title.Length);
         }
     }
 }

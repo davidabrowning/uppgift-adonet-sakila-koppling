@@ -97,12 +97,14 @@ namespace ADOnetSakilaKoppling
         private void PrintFilmography(Actor actor)
         {
             _output.WriteSubtitle($"{actor.Films.Count} filmer med {actor.FullName}");
-            MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn);
+            int columnWidth = _repository.LongestFilmTitle() + 1;
+            MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn, columnWidth);
         }
         private void PrintAllActorNames()
         {
             _output.WriteSubtitle("Listar ut alla skådespelare");
-            MenuHelper.PrintList<Actor>(_output, _repository.GetAllActors(), ActorsPerColumn);
+            int columnWidth = _repository.LongestActorName() + 1;
+            MenuHelper.PrintList<Actor>(_output, _repository.GetAllActors(), ActorsPerColumn, columnWidth);
             _output.ConfirmContinue();
         }
         private void ShowGoodbye()

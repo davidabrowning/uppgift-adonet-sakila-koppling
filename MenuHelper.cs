@@ -8,9 +8,8 @@ namespace ADOnetSakilaKoppling
 {
     internal static class MenuHelper
     {
-        public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn)
+        public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn, int columnWidth)
         {
-            int targetLength = MaxLength(items) + 1;
             for (int i = 0; i < items.Count; i++)
             {
                 if (i > 0 && i % itemsPerColumn == 0)
@@ -18,13 +17,9 @@ namespace ADOnetSakilaKoppling
                     output.Delay();
                     output.WriteLine();
                 }
-                output.Write($"{items[i].ToString().PadRight(targetLength)}");
+                output.Write($"{items[i].ToString().PadRight(columnWidth)}");
             }
             output.WriteLine();
-        }
-        public static int MaxLength<T>(List<T> items)
-        {
-            return items.Max(i => i.ToString().Length);
         }
     }
 }
