@@ -41,7 +41,7 @@ namespace ADOnetSakilaKoppling
         }
         private string GetConnectionString()
         {
-            string appsettings = File.ReadAllText("Appsettings.json");
+            string appsettings = File.ReadAllText("Configurations/Appsettings.json");
             JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
             string connectionString =
                 appsettingsJson
