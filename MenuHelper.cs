@@ -21,5 +21,28 @@ namespace ADOnetSakilaKoppling
             }
             output.WriteLine();
         }
+        public static void PrintMainMenuOptions(Output output)
+        {
+            foreach (MenuOption menuOption in Enum.GetValues(typeof(MenuOption)))
+                output.WriteLine((int)menuOption + ". " + GetMainMenuOption(menuOption));
+        }
+        private static string GetMainMenuOption(MenuOption menuOption)
+        {
+            switch (menuOption)
+            {
+                case MenuOption.SearchByFirstName:
+                    return "Sök filmer enligt skådespelarens förnamn";
+                    case MenuOption.SearchByLastName:
+                    return "Sök filmer enligt skådespelarens efternamn";
+                case MenuOption.SearchByFullName:
+                    return "Sök filmer enligt både förnamn och efternamn";
+                case MenuOption.ListAllActors:
+                    return "Lista ut alla skådespelare";
+                case MenuOption.Exit:
+                    return "Avsluta programmet";
+                default:
+                    return "Oväntad inmatning";
+            }
+        }
     }
 }

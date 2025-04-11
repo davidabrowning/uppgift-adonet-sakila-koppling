@@ -34,11 +34,7 @@ namespace ADOnetSakilaKoppling
         private void ShowMainMenu()
         {
             _output.WriteTitle("Huvudmeny");
-            _output.WriteLine("1. Sök filmer enligt skådespelarens förnamn");
-            _output.WriteLine("2. Sök filmer enligt skådespelarens efternamn");
-            _output.WriteLine("3. Sök filmer enligt både förnamn och efternamn");
-            _output.WriteLine("4. Lista ut alla skådespelare");
-            _output.WriteLine("5. Avsluta programmet");
+            MenuHelper.PrintMainMenuOptions(_output);
             _output.WriteLine();
         }
         private void HandleMainMenuSelection()
