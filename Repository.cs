@@ -147,19 +147,19 @@ namespace ADOnetSakilaKoppling
         public List<Film> GetAllFilms()
         {
             string filmQuery =
-                $"SELECT film_id, film_title " +
+                $"SELECT film_id, title " +
                 $"FROM film " +
-                $"ORDER BY film_title ASC";
+                $"ORDER BY title ASC";
             List<string[]> emptyParameterList = new List<string[]>();
             return GetFilms(filmQuery, emptyParameterList);
         }
         public int LongestActorName()
         {
-            return GetAllActors().Max(a => a.FullName).Length;
+            return GetAllActors().Max(a => a.FullName.Length);
         }
         public int LongestFilmTitle()
         {
-            return GetAllFilms().Max(f => f.Title).Length;
+            return GetAllFilms().Max(f => f.Title.Length);
         }
     }
 }
