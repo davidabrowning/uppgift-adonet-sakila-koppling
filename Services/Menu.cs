@@ -1,11 +1,16 @@
-﻿using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+﻿using ADOnetSakilaKoppling.Enums;
+using ADOnetSakilaKoppling.Models;
+using ADOnetSakilaKoppling.Repositories;
+using ADOnetSakilaKoppling.UI;
+using ADOnetSakilaKoppling.Utilities;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling
+namespace ADOnetSakilaKoppling.Services
 {
     internal class Menu
     {
@@ -101,13 +106,13 @@ namespace ADOnetSakilaKoppling
         {
             _output.WriteSubtitle(MenuHelper.SubtitleFilmsWithActor(actor));
             int columnWidth = _repository.LongestFilmTitle() + 1;
-            MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn, columnWidth);
+            MenuHelper.PrintList(_output, actor.Films, FilmsPerColumn, columnWidth);
         }
         private void PrintAllActorNames()
         {
             _output.WriteSubtitle(MenuHelper.SubtitleListAllActors);
             int columnWidth = _repository.LongestActorName() + 1;
-            MenuHelper.PrintList<Actor>(_output, _repository.GetAllActors(), ActorsPerColumn, columnWidth);
+            MenuHelper.PrintList(_output, _repository.GetAllActors(), ActorsPerColumn, columnWidth);
             _output.ConfirmContinue();
         }
         private void ShowGoodbye()

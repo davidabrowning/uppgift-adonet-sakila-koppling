@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using ADOnetSakilaKoppling.Models;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling
+namespace ADOnetSakilaKoppling.Repositories
 {
     internal class Repository
     {
@@ -40,7 +41,7 @@ namespace ADOnetSakilaKoppling
         }
         private string GetConnectionString()
         {
-            string appsettings = File.ReadAllText("Appsettings.json");
+            string appsettings = File.ReadAllText("Configurations/Appsettings.json");
             JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
             string connectionString =
                 appsettingsJson

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ADOnetSakilaKoppling.Enums;
+using ADOnetSakilaKoppling.Models;
+using ADOnetSakilaKoppling.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling
+namespace ADOnetSakilaKoppling.Utilities
 {
     internal static class MenuHelper
     {
@@ -25,7 +28,7 @@ namespace ADOnetSakilaKoppling
         public const string WarningUnexpectedInput = "Oväntad inmatning. Försök igen.";
         public static string SubtitleFilmsWithActor(Actor actor)
         {
-            return $"{actor.Films.Count} {MenuHelper.MessageFilmsWith} {actor.FullName}";
+            return $"{actor.Films.Count} {MessageFilmsWith} {actor.FullName}";
         }
         public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn, int columnWidth)
         {
