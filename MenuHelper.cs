@@ -8,6 +8,17 @@ namespace ADOnetSakilaKoppling
 {
     internal static class MenuHelper
     {
+        public const string TitleMain = "Huvudmeny";
+        public const string TitleGoodbye = "Programmet avslutas";
+        public const string SubtitleListAllActors = "Listar ut alla skådespelare";
+        public const string MessageFilmsWith = "filmer med";
+        public const string MessageGoodbye = "Tack och hej då!";
+        public const string PromptChoice = "Ditt val";
+        public const string PromptFirstName = "Ange förnamn";
+        public const string PromptLastName = "Ange efternamn";
+        public const string WarningNoActorsFound = "Inga skådespelare hittades. Försök igen.";
+        public const string WarningUnexpectedInput = "Oväntad inmatning. Försök igen.";
+
         public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn, int columnWidth)
         {
             for (int i = 0; i < items.Count; i++)
