@@ -25,7 +25,7 @@ namespace ADOnetSakilaKoppling
         public void WriteLine(string text, ConsoleColor textColor) => Write(text + "\n", textColor);
         public void WriteLine(string text) => WriteLine(text, DefaultColor);
         public void WriteLine() => WriteLine("");
-        public void WritePrompt(string text) => Write(text + " ", ConsoleColor.DarkBlue);
+        public void WritePrompt(string text) => Write(text + ": ", ConsoleColor.DarkBlue);
         public void WriteTitle(string text)
         {
             Clear();
