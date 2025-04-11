@@ -23,7 +23,7 @@ namespace ADOnetSakilaKoppling
         public const string PromptLastName = "Ange efternamn";
         public const string WarningNoActorsFound = "Inga skådespelare hittades. Försök igen.";
         public const string WarningUnexpectedInput = "Oväntad inmatning. Försök igen.";
-        public static string FilmsWithActor(Actor actor)
+        public static string SubtitleFilmsWithActor(Actor actor)
         {
             return $"{actor.Films.Count} {MenuHelper.MessageFilmsWith} {actor.FullName}";
         }
