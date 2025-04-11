@@ -83,7 +83,8 @@ namespace ADOnetSakilaKoppling.Repositories
                     $"FROM film " +
                     $"INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
                     $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
-                    $"WHERE actor.actor_id = @actorId";
+                    $"WHERE actor.actor_id = @actorId " 
+                    +"ORDER BY film.title ASC";
                 List<string[]> parameters = new List<string[]>();
                 parameters.Add(["@actorId", actor.ActorId.ToString()]);
                 List<string[]> filmResults = GetQueryResults(filmQuery, parameters);
@@ -101,7 +102,7 @@ namespace ADOnetSakilaKoppling.Repositories
                 $"SELECT actor_id, first_name, last_name " +
                 $"FROM actor " +
                 $"WHERE first_name = @firstName " +
-                $"ORDER BY first_name ASC, last_name ASC";
+                $"ORDER BY last_name ASC, first_name ASC";
             List<string[]> parameters = new List<string[]>();
             parameters.Add(["@firstName", firstName]);
             List<Actor> actors = GetActors(actorQuery, parameters);
@@ -114,7 +115,7 @@ namespace ADOnetSakilaKoppling.Repositories
                 $"SELECT actor_id, first_name, last_name " +
                 $"FROM actor " +
                 $"WHERE last_name = @lastName " +
-                $"ORDER BY first_name ASC, last_name ASC";
+                $"ORDER BY last_name ASC, first_name ASC";
             List<string[]> parameters = new List<string[]>();
             parameters.Add(["@lastName", lastName]);
             List<Actor> actors = GetActors(actorQuery, parameters);
@@ -128,7 +129,7 @@ namespace ADOnetSakilaKoppling.Repositories
                 $"FROM actor " +
                 $"WHERE first_name = @firstName " +
                 $"AND last_name = @lastName " +
-                $"ORDER BY first_name ASC, last_name ASC";
+                $"ORDER BY last_name ASC, first_name ASC";
             List<string[]> parameters = new List<string[]>();
             parameters.Add(["@firstName", firstName]);
             parameters.Add(["@lastName", lastName]);
@@ -141,7 +142,7 @@ namespace ADOnetSakilaKoppling.Repositories
             string actorQuery =
                 $"SELECT actor_id, first_name, last_name " +
                 $"FROM actor " +
-                $"ORDER BY first_name ASC, last_name ASC";
+                $"ORDER BY last_name ASC, first_name ASC";
             List<string[]> emptyParameterList = new List<string[]>();
             return GetActors(actorQuery, emptyParameterList);
         }
