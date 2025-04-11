@@ -11,6 +11,11 @@ namespace ADOnetSakilaKoppling
         public const string TitleMain = "Huvudmeny";
         public const string TitleGoodbye = "Programmet avslutas";
         public const string SubtitleListAllActors = "Listar ut alla skådespelare";
+        public const string OptionSearchByFirstName = "Sök filmer enligt skådespelarens förnamn";
+        public const string OptionSearchByLastName = "Sök filmer enligt skådespelarens efternamn";
+        public const string OptionSearchByFullName = "Sök filmer enligt både förnamn och efternamn";
+        public const string OptionListAllActors = "Lista ut alla skådespelare";
+        public const string OptionExitProgram = "Avsluta programmet";
         public const string MessageFilmsWith = "filmer med";
         public const string MessageGoodbye = "Tack och hej då!";
         public const string PromptChoice = "Ditt val";
@@ -18,7 +23,10 @@ namespace ADOnetSakilaKoppling
         public const string PromptLastName = "Ange efternamn";
         public const string WarningNoActorsFound = "Inga skådespelare hittades. Försök igen.";
         public const string WarningUnexpectedInput = "Oväntad inmatning. Försök igen.";
-
+        public static string FilmsWithActor(Actor actor)
+        {
+            return $"{actor.Films.Count} {MenuHelper.MessageFilmsWith} {actor.FullName}";
+        }
         public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn, int columnWidth)
         {
             for (int i = 0; i < items.Count; i++)
@@ -42,17 +50,17 @@ namespace ADOnetSakilaKoppling
             switch (menuOption)
             {
                 case MenuOption.SearchByFirstName:
-                    return "Sök filmer enligt skådespelarens förnamn";
-                    case MenuOption.SearchByLastName:
-                    return "Sök filmer enligt skådespelarens efternamn";
+                    return OptionSearchByFirstName;
+                case MenuOption.SearchByLastName:
+                    return OptionSearchByLastName;
                 case MenuOption.SearchByFullName:
-                    return "Sök filmer enligt både förnamn och efternamn";
+                    return OptionSearchByFullName;
                 case MenuOption.ListAllActors:
-                    return "Lista ut alla skådespelare";
+                    return OptionListAllActors;
                 case MenuOption.Exit:
-                    return "Avsluta programmet";
+                    return OptionExitProgram;
                 default:
-                    return "Oväntad inmatning";
+                    return WarningUnexpectedInput;
             }
         }
     }

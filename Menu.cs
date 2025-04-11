@@ -99,7 +99,7 @@ namespace ADOnetSakilaKoppling
         }
         private void PrintFilmography(Actor actor)
         {
-            _output.WriteSubtitle($"{actor.Films.Count} {MenuHelper.MessageFilmsWith} {actor.FullName}");
+            _output.WriteSubtitle(MenuHelper.SubtitleFilmsWithActor(actor));
             int columnWidth = _repository.LongestFilmTitle() + 1;
             MenuHelper.PrintList<Film>(_output, actor.Films, FilmsPerColumn, columnWidth);
         }
