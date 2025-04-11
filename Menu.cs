@@ -43,28 +43,35 @@ namespace ADOnetSakilaKoppling
         }
         private void HandleMainMenuSelection()
         {
-            switch (_input.GetString("Ditt val:"))
+            int.TryParse(_input.GetString("Ditt val:"), out int menuChoice);
+            if (!Enum.IsDefined(typeof(MenuOption), menuChoice))
             {
-                case "1":
-                    ShowFilmographiesByFirstName();
-                    break;
-                case "2":
-                    PrintFilmographiesByLastName();
-                    break;
-                case "3":
-                    PrintFilmographiesByFullName();
-                    break;
-                case "4":
-                    PrintAllActorNames();
-                    break;
-                case "5":
-                    _running = false;
-                    break;
-                default:
-                    _output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
-                    _output.ConfirmContinue();
-                    break;
+                _output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
+                _output.ConfirmContinue();
             }
+            else
+                switch ((MenuOption)menuChoice)
+                {
+                    case MenuOption.SearchByFirstName:
+                        ShowFilmographiesByFirstName();
+                        break;
+                    case MenuOption.SearchByLastName:
+                        PrintFilmographiesByLastName();
+                        break;
+                    case MenuOption.SearchByFullName:
+                        PrintFilmographiesByFullName();
+                        break;
+                    case MenuOption.ListAllActors:
+                        PrintAllActorNames();
+                        break;
+                    case MenuOption.Exit:
+                        _running = false;
+                        break;
+                    default:
+                        _output.WriteWarning("Varning: Oväntad inmatning. Försök igen.");
+                        _output.ConfirmContinue();
+                        break;
+                }
         }
         private void ShowFilmographiesByFirstName()
         {
