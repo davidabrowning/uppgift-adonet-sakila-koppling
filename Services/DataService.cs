@@ -47,7 +47,6 @@ namespace ADOnetSakilaKoppling.Services
                     PrintFilmography(actor);
             else
                 _output.WriteWarning(MenuHelper.WarningNoActorsFound);
-            _output.ConfirmContinue();
         }
         private void PrintFilmography(Actor actor)
         {
@@ -60,7 +59,6 @@ namespace ADOnetSakilaKoppling.Services
             _output.WriteSubtitle(MenuHelper.SubtitleListAllActors);
             int columnWidth = _repository.LongestActorName() + 1;
             MenuHelper.PrintList(_output, _repository.GetAllActors(), MenuHelper.ActorsPerColumn, columnWidth);
-            _output.ConfirmContinue();
         }
     }
 }

@@ -31,8 +31,8 @@ namespace ADOnetSakilaKoppling.Services
             {
                 ShowMainMenu();
                 HandleMainMenuSelection();
+                _output.ConfirmContinue();
             }
-            ShowGoodbye();
         }
         public void AddMenuOption(MenuOption menuOption)
         {
@@ -56,18 +56,12 @@ namespace ADOnetSakilaKoppling.Services
         public void ShowUnexpectedInput()
         {
             _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
-            _output.ConfirmContinue();
         }
         public void ExitMainMenu()
         {
             _running = false;
-        }
-        private void ShowGoodbye()
-        {
-            _output.WriteTitle(MenuHelper.TitleGoodbye);
+            _output.WriteSubtitle(MenuHelper.TitleGoodbye);
             _output.WriteLine(MenuHelper.MessageGoodbye);
-            _output.ConfirmContinue();
-            _output.Clear();
         }
     }
 }
