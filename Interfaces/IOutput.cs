@@ -12,7 +12,10 @@ namespace ADOnetSakilaKoppling.Interfaces
         public void WriteSubtitle(string text);
         public void WriteLine(string text);
         public void WriteLine();
+        public void Write(string text);
         public void WriteWarning(string text);
+        public void WritePrompt(string text);
         public void ConfirmContinue();
+        public void Delay();
     }
 }

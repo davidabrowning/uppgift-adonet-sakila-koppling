@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.UI
 {
-    internal class Output
+    internal class ConsoleOutput : IOutput
     {
         const ConsoleColor DefaultColor = ConsoleColor.Black;
-        public Output()
+        public ConsoleOutput()
         {
             Clear(); // Necessary in order to fully fill console background color
         }
@@ -37,7 +38,7 @@ namespace ADOnetSakilaKoppling.UI
         public void WriteSubtitle(string text)
         {
             WriteLine();
-            WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
+            WriteLine($"{text}", ConsoleColor.DarkGray);
         }
         public void WriteWarning(string text)
         {

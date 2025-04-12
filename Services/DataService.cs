@@ -1,7 +1,6 @@
-﻿using ADOnetSakilaKoppling.Menus;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Menus;
 using ADOnetSakilaKoppling.Models;
-using ADOnetSakilaKoppling.Repositories;
-using ADOnetSakilaKoppling.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Services
 {
-    internal class DataService
+    internal class DataService : IActorService
     {
-        private Input _input;
-        private Output _output;
-        private Repository _repository;
-        public DataService(Input input, Output output, Repository repository)
+        private IInput _input;
+        private IOutput _output;
+        private IRepository _repository;
+        public DataService(IInput input, IOutput output, IRepository repository)
         {
             _input = input;
             _output = output;

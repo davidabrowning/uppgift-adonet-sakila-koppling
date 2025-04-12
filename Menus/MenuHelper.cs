@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Models;
 using ADOnetSakilaKoppling.Services;
 using ADOnetSakilaKoppling.UI;
 using System;
@@ -28,7 +29,7 @@ namespace ADOnetSakilaKoppling.Menus
         {
             return $"{actor.Films.Count} {MessageFilmsWith} {actor.FullName}";
         }
-        public static void PrintList<T>(Output output, List<T> items, int itemsPerColumn, int columnWidth)
+        public static void PrintList<T>(IOutput output, List<T> items, int itemsPerColumn, int columnWidth)
         {
             for (int i = 0; i < items.Count; i++)
             {

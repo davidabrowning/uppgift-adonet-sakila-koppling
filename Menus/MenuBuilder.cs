@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Services;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,13 @@ namespace ADOnetSakilaKoppling.Menus
         public const string OptionSearchByFullName = "Sök filmer enligt både förnamn och efternamn";
         public const string OptionListAllActors = "Lista ut alla skådespelare";
         public const string OptionExitProgram = "Avsluta programmet";
-        public static void BuildMenuOptions(Menu menu, DataService dataService)
+        public static void BuildMenuOptions(IMenu menu, IActorService actorService)
         {
-            menu.AddMenuOption(new MenuOption(OptionSearchByFirstName, dataService.PrintFilmographiesByFirstName));
-            menu.AddMenuOption(new MenuOption(OptionSearchByLastName, dataService.PrintFilmographiesByLastName));
-            menu.AddMenuOption(new MenuOption(OptionSearchByFullName, dataService.PrintFilmographiesByFullName));
-            menu.AddMenuOption(new MenuOption(OptionListAllActors, dataService.PrintAllActorNames));
-            menu.AddMenuOption(new MenuOption(OptionExitProgram, menu.ExitMainMenu));
+            menu.AddMenuOption(new MenuOption(OptionSearchByFirstName, actorService.PrintFilmographiesByFirstName));
+            menu.AddMenuOption(new MenuOption(OptionSearchByLastName, actorService.PrintFilmographiesByLastName));
+            menu.AddMenuOption(new MenuOption(OptionSearchByFullName, actorService.PrintFilmographiesByFullName));
+            menu.AddMenuOption(new MenuOption(OptionListAllActors, actorService.PrintAllActorNames));
+            menu.AddMenuOption(new MenuOption(OptionExitProgram, menu.Stop));
         }
     }
 }

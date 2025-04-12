@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Menus;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Menus;
 using ADOnetSakilaKoppling.Repositories;
 using ADOnetSakilaKoppling.Services;
 using ADOnetSakilaKoppling.UI;
@@ -14,13 +15,13 @@ namespace ADOnetSakilaKoppling
     {
         public void Launch()
         {
-            Output output = new Output();
-            Input input = new Input(output);
-            Repository repository = new Repository();
-            DataService dataService = new DataService(input, output, repository);
-            Menu menu = new Menu(input, output);
+            IOutput output = new ConsoleOutput();
+            IInput input = new Keyboard(output);
+            IRepository repository = new SakilaDbConnection();
+            IActorServiceFilmService actorFilmService = new DataService(input, output, repository);
+            IMenu menu = new MainMenu(input, output);
 
-            MenuBuilder.BuildMenuOptions(menu, dataService);
+            MenuBuilder.BuildMenuOptions(menu, actorFilmService);
 
             menu.Start();
         }
