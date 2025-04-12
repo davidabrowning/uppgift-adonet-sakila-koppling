@@ -18,7 +18,6 @@ namespace ADOnetSakilaKoppling.UI
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor= DefaultColor;
             Console.Clear();
-            
         }
         public void Write(string text, ConsoleColor textColor)
         {
