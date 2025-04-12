@@ -9,6 +9,10 @@ namespace ADOnetSakilaKoppling.UI
     internal class Output
     {
         const ConsoleColor DefaultColor = ConsoleColor.Black;
+        public Output()
+        {
+            Clear();
+        }
         public void Clear()
         {
             Console.BackgroundColor = ConsoleColor.White;
@@ -28,7 +32,6 @@ namespace ADOnetSakilaKoppling.UI
         public void WritePrompt(string text) => Write(text + ": ", ConsoleColor.DarkBlue);
         public void WriteTitle(string text)
         {
-            Clear();
             WriteLine();
             WriteLine($"========= {text} =========", ConsoleColor.DarkGray);
         }
@@ -47,6 +50,7 @@ namespace ADOnetSakilaKoppling.UI
             WriteLine();
             WriteLine("Tryck ENTER för att fortsätta.", ConsoleColor.DarkBlue);
             Console.ReadLine();
+            Clear();
         }
         public void Delay() => Thread.Sleep(1);
     }
