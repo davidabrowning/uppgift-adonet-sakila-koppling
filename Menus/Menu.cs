@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Models;
 using ADOnetSakilaKoppling.Repositories;
 using ADOnetSakilaKoppling.UI;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -13,10 +14,10 @@ namespace ADOnetSakilaKoppling.Menus
     internal class Menu
     {
         private bool _running;
-        private readonly Input _input;
-        private readonly Output _output;
+        private readonly IInput _input;
+        private readonly IOutput _output;
         private List<MenuOption> _menuOptions = new List<MenuOption>();
-        public Menu(Input input, Output output)
+        public Menu(IInput input, IOutput output)
         {
             _running = true;
             _input = input;
