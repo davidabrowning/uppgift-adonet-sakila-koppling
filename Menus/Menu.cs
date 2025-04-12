@@ -15,14 +15,12 @@ namespace ADOnetSakilaKoppling.Menus
         private bool _running;
         private readonly Input _input;
         private readonly Output _output;
-        private readonly Repository _repository;
         private List<MenuOption> _menuOptions = new List<MenuOption>();
-        public Menu(Input input, Output output, Repository repository)
+        public Menu(Input input, Output output)
         {
             _running = true;
             _input = input;
             _output = output;
-            _repository = repository;
         }
         public void Start()
         {
@@ -30,7 +28,6 @@ namespace ADOnetSakilaKoppling.Menus
             {
                 ShowMainMenu();
                 HandleMainMenuSelection();
-                _output.ConfirmContinue();
             }
         }
         public void AddMenuOption(MenuOption menuOption)
@@ -50,11 +47,8 @@ namespace ADOnetSakilaKoppling.Menus
             if (MenuOption.IsValidId(menuChoice))
                 _menuOptions.Where(mo => mo.Id == menuChoice).First().Execute();
             else
-                ShowUnexpectedInput();
-        }
-        public void ShowUnexpectedInput()
-        {
-            _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
+                _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
+            _output.ConfirmContinue();
         }
         public void ExitMainMenu()
         {
