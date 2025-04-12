@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Services
 {
-    internal class MenuOptionClass
+    internal class MenuOption
     {
         private static readonly int LowestId = 1;
         private static int HighestId = 0;
         public int Id { get; private set; }
         public string Title { get; private set; }
         public Action MethodToCall { get; private set; }
-        public MenuOptionClass(string title, Action methodToCall)
+        public MenuOption(string title, Action methodToCall)
         {
             Id = ++HighestId;
             Title = title;

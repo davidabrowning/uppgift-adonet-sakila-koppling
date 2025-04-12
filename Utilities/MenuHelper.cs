@@ -43,14 +43,14 @@ namespace ADOnetSakilaKoppling.Utilities
             }
             output.WriteLine();
         }
-        public static List<MenuOptionClass> GetMainMenuOptions(Menu menu)
+        public static List<MenuOption> GetMainMenuOptions(Menu menu)
         {
-            List<MenuOptionClass> mainMenuOptions = new List<MenuOptionClass>();
-            mainMenuOptions.Add(new MenuOptionClass(OptionSearchByFirstName, menu.PrintFilmographiesByFirstName));
-            mainMenuOptions.Add(new MenuOptionClass(OptionSearchByLastName, menu.PrintFilmographiesByLastName));
-            mainMenuOptions.Add(new MenuOptionClass(OptionSearchByFullName, menu.PrintFilmographiesByFullName));
-            mainMenuOptions.Add(new MenuOptionClass(OptionListAllActors, menu.PrintAllActorNames));
-            mainMenuOptions.Add(new MenuOptionClass(OptionExitProgram, menu.ExitMainMenu));
+            List<MenuOption> mainMenuOptions = new List<MenuOption>();
+            mainMenuOptions.Add(new MenuOption(OptionSearchByFirstName, menu.PrintFilmographiesByFirstName));
+            mainMenuOptions.Add(new MenuOption(OptionSearchByLastName, menu.PrintFilmographiesByLastName));
+            mainMenuOptions.Add(new MenuOption(OptionSearchByFullName, menu.PrintFilmographiesByFullName));
+            mainMenuOptions.Add(new MenuOption(OptionListAllActors, menu.PrintAllActorNames));
+            mainMenuOptions.Add(new MenuOption(OptionExitProgram, menu.ExitMainMenu));
             return mainMenuOptions;
         }
     }

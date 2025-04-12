@@ -19,7 +19,7 @@ namespace ADOnetSakilaKoppling.Services
         private readonly Input _input;
         private readonly Output _output;
         private readonly Repository _repository;
-        private List<MenuOptionClass> _menuOptions;
+        private List<MenuOption> _menuOptions;
         public Menu(Input input, Output output, Repository repository)
         {
             _running = true;
@@ -40,15 +40,15 @@ namespace ADOnetSakilaKoppling.Services
         private void ShowMainMenu()
         {
             _output.WriteTitle(MenuHelper.TitleMain);
-            foreach (MenuOptionClass menuOption in _menuOptions)
+            foreach (MenuOption menuOption in _menuOptions)
                 _output.WriteLine(menuOption.ToString() ?? "Okänt menyalternativ");
             _output.WriteLine();
         }
         private void HandleMainMenuSelection()
         {
             int.TryParse(_input.GetString(MenuHelper.PromptChoice), out int menuChoice);
-            if (MenuOptionClass.IsValidId(menuChoice))
-                _menuOptions.Where(mo => mo.Id == menuChoice).First<MenuOptionClass>().Execute();
+            if (MenuOption.IsValidId(menuChoice))
+                _menuOptions.Where(mo => mo.Id == menuChoice).First<MenuOption>().Execute();
             else
                 ShowUnexpectedInput();
         }
