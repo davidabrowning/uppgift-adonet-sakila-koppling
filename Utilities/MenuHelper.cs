@@ -1,5 +1,6 @@
 ﻿using ADOnetSakilaKoppling.Enums;
 using ADOnetSakilaKoppling.Models;
+using ADOnetSakilaKoppling.Services;
 using ADOnetSakilaKoppling.UI;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,16 @@ namespace ADOnetSakilaKoppling.Utilities
                 default:
                     return WarningUnexpectedInput;
             }
+        }
+        public static List<MenuOptionClass> GetMainMenuOptions(Menu menu)
+        {
+            List<MenuOptionClass> mainMenuOptions = new List<MenuOptionClass>();
+            mainMenuOptions.Add(new MenuOptionClass(OptionSearchByFirstName, menu.PrintFilmographiesByFirstName));
+            mainMenuOptions.Add(new MenuOptionClass(OptionSearchByLastName, menu.PrintFilmographiesByLastName));
+            mainMenuOptions.Add(new MenuOptionClass(OptionSearchByFullName, menu.PrintFilmographiesByFullName));
+            mainMenuOptions.Add(new MenuOptionClass(OptionListAllActors, menu.PrintAllActorNames));
+            mainMenuOptions.Add(new MenuOptionClass(OptionExitProgram, menu.ExitMainMenu));
+            return mainMenuOptions;
         }
     }
 }

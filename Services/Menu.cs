@@ -20,12 +20,14 @@ namespace ADOnetSakilaKoppling.Services
         private readonly Input _input;
         private readonly Output _output;
         private readonly Repository _repository;
+        private List<MenuOptionClass> _menuOptions;
         public Menu(Input input, Output output, Repository repository)
         {
             _running = true;
             _input = input;
             _output = output;
             _repository = repository;
+            _menuOptions = MenuHelper.GetMainMenuOptions(this);
         }
         public void Start()
         {
@@ -39,61 +41,38 @@ namespace ADOnetSakilaKoppling.Services
         private void ShowMainMenu()
         {
             _output.WriteTitle(MenuHelper.TitleMain);
-            MenuHelper.PrintMainMenuOptions(_output);
+            foreach (MenuOptionClass menuOption in _menuOptions)
+                _output.WriteLine(menuOption.ToString() ?? "Okänt menyalternativ");
             _output.WriteLine();
         }
         private void HandleMainMenuSelection()
         {
             int.TryParse(_input.GetString(MenuHelper.PromptChoice), out int menuChoice);
-            if (!Enum.IsDefined(typeof(MenuOption), menuChoice))
-            {
-                _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
-                _output.ConfirmContinue();
-            }
+            if (MenuOptionClass.IsValidId(menuChoice))
+                _menuOptions.Where(mo => mo.Id == menuChoice).First<MenuOptionClass>().Execute();
             else
-                switch ((MenuOption)menuChoice)
-                {
-                    case MenuOption.SearchByFirstName:
-                        ShowFilmographiesByFirstName();
-                        break;
-                    case MenuOption.SearchByLastName:
-                        PrintFilmographiesByLastName();
-                        break;
-                    case MenuOption.SearchByFullName:
-                        PrintFilmographiesByFullName();
-                        break;
-                    case MenuOption.ListAllActors:
-                        PrintAllActorNames();
-                        break;
-                    case MenuOption.Exit:
-                        _running = false;
-                        break;
-                    default:
-                        _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
-                        _output.ConfirmContinue();
-                        break;
-                }
+                ShowUnexpectedInput();
         }
-        private void ShowFilmographiesByFirstName()
+        public void PrintFilmographiesByFirstName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             List<Actor> actors = _repository.GetActorsByFirstName(firstName);
             PrintFilmographies(actors);
         }
-        private void PrintFilmographiesByLastName()
+        public void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Actor> actors = _repository.GetActorsByLastName(lastName);
             PrintFilmographies(actors);
         }
-        private void PrintFilmographiesByFullName()
+        public void PrintFilmographiesByFullName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Actor> actors = _repository.GetActorsByFullName(firstName, lastName);
             PrintFilmographies(actors);
         }
-        private void PrintFilmographies(List<Actor> actors)
+        public void PrintFilmographies(List<Actor> actors)
         {
             if (actors.Count > 0)
                 foreach (Actor actor in actors)
@@ -108,12 +87,21 @@ namespace ADOnetSakilaKoppling.Services
             int columnWidth = _repository.LongestFilmTitle() + 1;
             MenuHelper.PrintList(_output, actor.Films, FilmsPerColumn, columnWidth);
         }
-        private void PrintAllActorNames()
+        public void PrintAllActorNames()
         {
             _output.WriteSubtitle(MenuHelper.SubtitleListAllActors);
             int columnWidth = _repository.LongestActorName() + 1;
             MenuHelper.PrintList(_output, _repository.GetAllActors(), ActorsPerColumn, columnWidth);
             _output.ConfirmContinue();
+        }
+        public void ShowUnexpectedInput()
+        {
+            _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
+            _output.ConfirmContinue();
+        }
+        public void ExitMainMenu()
+        {
+            _running = false;
         }
         private void ShowGoodbye()
         {
