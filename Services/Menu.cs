@@ -25,10 +25,6 @@ namespace ADOnetSakilaKoppling.Services
             _output = output;
             _repository = repository;
         }
-        public void AddMenuOption(MenuOption menuOption)
-        {
-            _menuOptions.Add(menuOption);
-        }
         public void Start()
         {
             while (_running)
@@ -37,6 +33,10 @@ namespace ADOnetSakilaKoppling.Services
                 HandleMainMenuSelection();
             }
             ShowGoodbye();
+        }
+        public void AddMenuOption(MenuOption menuOption)
+        {
+            _menuOptions.Add(menuOption);
         }
         private void ShowMainMenu()
         {
