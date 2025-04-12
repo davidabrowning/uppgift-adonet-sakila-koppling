@@ -11,7 +11,7 @@ namespace ADOnetSakilaKoppling.UI
         const ConsoleColor DefaultColor = ConsoleColor.Black;
         public Output()
         {
-            Clear();
+            Clear(); // Necessary in order to fully fill console background color
         }
         public void Clear()
         {
