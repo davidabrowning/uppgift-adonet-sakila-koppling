@@ -18,10 +18,10 @@ namespace ADOnetSakilaKoppling
             IOutput output = new ConsoleOutput();
             IInput input = new Keyboard(output);
             IRepository repository = new SakilaDbConnection();
-            IActorServiceFilmService actorFilmService = new DataService(input, output, repository);
+            IActorService actorService = new DataService(input, output, repository);
             IMenu menu = new MainMenu(input, output);
 
-            MenuBuilder.BuildMenuOptions(menu, actorFilmService);
+            MenuBuilder.BuildMenuOptions(menu, actorService);
 
             menu.Start();
         }
