@@ -1,5 +1,4 @@
-﻿using ADOnetSakilaKoppling.Services;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using System.Reflection.Metadata;
 namespace ADOnetSakilaKoppling
 {
@@ -7,8 +6,8 @@ namespace ADOnetSakilaKoppling
     {
         static void Main(string[] args)
         {
-            ProgramLauncher programLauncher = new ProgramLauncher();
-            programLauncher.Launch();
+            ApplicationLauncher applicationLauncher = new ApplicationLauncher();
+            applicationLauncher.Launch();
         }
     }
 }

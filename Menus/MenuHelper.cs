@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling.Utilities
+namespace ADOnetSakilaKoppling.Menus
 {
     internal static class MenuHelper
     {

@@ -1,7 +1,6 @@
 ﻿using ADOnetSakilaKoppling.Models;
 using ADOnetSakilaKoppling.Repositories;
 using ADOnetSakilaKoppling.UI;
-using ADOnetSakilaKoppling.Utilities;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling.Services
+namespace ADOnetSakilaKoppling.Menus
 {
     internal class Menu
     {
@@ -49,7 +48,7 @@ namespace ADOnetSakilaKoppling.Services
         {
             int.TryParse(_input.GetString(MenuHelper.PromptChoice), out int menuChoice);
             if (MenuOption.IsValidId(menuChoice))
-                _menuOptions.Where(mo => mo.Id == menuChoice).First<MenuOption>().Execute();
+                _menuOptions.Where(mo => mo.Id == menuChoice).First().Execute();
             else
                 ShowUnexpectedInput();
         }

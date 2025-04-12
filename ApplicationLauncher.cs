@@ -1,4 +1,6 @@
-﻿using ADOnetSakilaKoppling.Repositories;
+﻿using ADOnetSakilaKoppling.Menus;
+using ADOnetSakilaKoppling.Repositories;
+using ADOnetSakilaKoppling.Services;
 using ADOnetSakilaKoppling.UI;
 using System;
 using System.Collections.Generic;
@@ -6,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling.Services
+namespace ADOnetSakilaKoppling
 {
-    internal class ProgramLauncher
+    internal class ApplicationLauncher
     {
         public void Launch()
         {
