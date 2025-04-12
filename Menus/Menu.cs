@@ -15,14 +15,12 @@ namespace ADOnetSakilaKoppling.Menus
         private bool _running;
         private readonly Input _input;
         private readonly Output _output;
-        private readonly Repository _repository;
         private List<MenuOption> _menuOptions = new List<MenuOption>();
-        public Menu(Input input, Output output, Repository repository)
+        public Menu(Input input, Output output)
         {
             _running = true;
             _input = input;
             _output = output;
-            _repository = repository;
         }
         public void Start()
         {
