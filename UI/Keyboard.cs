@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.UI
 {
-    internal class Input
+    internal class Keyboard : IInput
     {
-        private readonly Output _output;
-        public Input(Output output)
+        private readonly IOutput _output;
+        public Keyboard(IOutput output)
         {
             _output = output;
         }

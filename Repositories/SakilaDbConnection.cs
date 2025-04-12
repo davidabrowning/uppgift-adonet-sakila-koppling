@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class Repository
+    internal class SakilaDbConnection : IRepository
     {
         private List<string[]> GetQueryResults(string query, List<string[]> parameters)
         {

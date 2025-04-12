@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Interfaces;
+using ADOnetSakilaKoppling.Models;
 using ADOnetSakilaKoppling.Repositories;
 using ADOnetSakilaKoppling.UI;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -10,38 +11,38 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Menus
 {
-    internal class Menu
+    internal class MainMenu : IMenu
     {
         private bool _running;
-        private readonly Input _input;
-        private readonly Output _output;
+        private readonly IInput _input;
+        private readonly IOutput _output;
         private List<MenuOption> _menuOptions = new List<MenuOption>();
-        public Menu(Input input, Output output)
+        public MainMenu(IInput input, IOutput output)
         {
             _running = true;
             _input = input;
             _output = output;
         }
-        public void Start()
-        {
-            while (_running)
-            {
-                ShowMainMenu();
-                HandleMainMenuSelection();
-            }
-        }
         public void AddMenuOption(MenuOption menuOption)
         {
             _menuOptions.Add(menuOption);
         }
-        private void ShowMainMenu()
+        public void Start()
+        {
+            while (_running)
+            {
+                ShowMenu();
+                HandleMenuSelection();
+            }
+        }
+        private void ShowMenu()
         {
             _output.WriteTitle(MenuHelper.TitleMain);
             foreach (MenuOption menuOption in _menuOptions)
                 _output.WriteLine(menuOption.ToString() ?? MenuHelper.WarningMissingMenuOption);
             _output.WriteLine();
         }
-        private void HandleMainMenuSelection()
+        private void HandleMenuSelection()
         {
             int.TryParse(_input.GetString(MenuHelper.PromptChoice), out int menuChoice);
             if (MenuOption.IsValidId(menuChoice))
@@ -50,7 +51,7 @@ namespace ADOnetSakilaKoppling.Menus
                 _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
             _output.ConfirmContinue();
         }
-        public void ExitMainMenu()
+        public void Stop()
         {
             _running = false;
             _output.WriteSubtitle(MenuHelper.TitleGoodbye);
