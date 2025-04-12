@@ -28,7 +28,6 @@ namespace ADOnetSakilaKoppling.Menus
             {
                 ShowMainMenu();
                 HandleMainMenuSelection();
-                _output.ConfirmContinue();
             }
         }
         public void AddMenuOption(MenuOption menuOption)
@@ -49,6 +48,7 @@ namespace ADOnetSakilaKoppling.Menus
                 _menuOptions.Where(mo => mo.Id == menuChoice).First().Execute();
             else
                 _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
+            _output.ConfirmContinue();
         }
         public void ExitMainMenu()
         {
