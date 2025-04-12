@@ -11,6 +11,8 @@ namespace ADOnetSakilaKoppling.Utilities
 {
     internal static class MenuHelper
     {
+        public const int ActorsPerColumn = 4;
+        public const int FilmsPerColumn = 3;
         public const string TitleMain = "Huvudmeny";
         public const string TitleGoodbye = "Programmet avslutas";
         public const string SubtitleListAllActors = "Listar ut alla skådespelare";

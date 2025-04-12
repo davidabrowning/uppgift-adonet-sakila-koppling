@@ -13,12 +13,12 @@ namespace ADOnetSakilaKoppling.Services
         public const string OptionSearchByFullName = "Sök filmer enligt både förnamn och efternamn";
         public const string OptionListAllActors = "Lista ut alla skådespelare";
         public const string OptionExitProgram = "Avsluta programmet";
-        public static void BuildMenuOptions(Menu menu)
+        public static void BuildMenuOptions(Menu menu, DataService dataService)
         {
-            menu.AddMenuOption(new MenuOption(OptionSearchByFirstName, menu.PrintFilmographiesByFirstName));
-            menu.AddMenuOption(new MenuOption(OptionSearchByLastName, menu.PrintFilmographiesByLastName));
-            menu.AddMenuOption(new MenuOption(OptionSearchByFullName, menu.PrintFilmographiesByFullName));
-            menu.AddMenuOption(new MenuOption(OptionListAllActors, menu.PrintAllActorNames));
+            menu.AddMenuOption(new MenuOption(OptionSearchByFirstName, dataService.PrintFilmographiesByFirstName));
+            menu.AddMenuOption(new MenuOption(OptionSearchByLastName, dataService.PrintFilmographiesByLastName));
+            menu.AddMenuOption(new MenuOption(OptionSearchByFullName, dataService.PrintFilmographiesByFullName));
+            menu.AddMenuOption(new MenuOption(OptionListAllActors, dataService.PrintAllActorNames));
             menu.AddMenuOption(new MenuOption(OptionExitProgram, menu.ExitMainMenu));
         }
     }
