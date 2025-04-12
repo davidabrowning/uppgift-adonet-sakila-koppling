@@ -14,11 +14,6 @@ namespace ADOnetSakilaKoppling.Utilities
         public const string TitleMain = "Huvudmeny";
         public const string TitleGoodbye = "Programmet avslutas";
         public const string SubtitleListAllActors = "Listar ut alla skådespelare";
-        public const string OptionSearchByFirstName = "Sök filmer enligt skådespelarens förnamn";
-        public const string OptionSearchByLastName = "Sök filmer enligt skådespelarens efternamn";
-        public const string OptionSearchByFullName = "Sök filmer enligt både förnamn och efternamn";
-        public const string OptionListAllActors = "Lista ut alla skådespelare";
-        public const string OptionExitProgram = "Avsluta programmet";
         public const string MessageFilmsWith = "filmer med";
         public const string MessageGoodbye = "Tack och hej då!";
         public const string PromptChoice = "Ditt val";
@@ -42,16 +37,6 @@ namespace ADOnetSakilaKoppling.Utilities
                 output.Write($"{items[i].ToString().PadRight(columnWidth)}");
             }
             output.WriteLine();
-        }
-        public static List<MenuOption> GetMainMenuOptions(Menu menu)
-        {
-            List<MenuOption> mainMenuOptions = new List<MenuOption>();
-            mainMenuOptions.Add(new MenuOption(OptionSearchByFirstName, menu.PrintFilmographiesByFirstName));
-            mainMenuOptions.Add(new MenuOption(OptionSearchByLastName, menu.PrintFilmographiesByLastName));
-            mainMenuOptions.Add(new MenuOption(OptionSearchByFullName, menu.PrintFilmographiesByFullName));
-            mainMenuOptions.Add(new MenuOption(OptionListAllActors, menu.PrintAllActorNames));
-            mainMenuOptions.Add(new MenuOption(OptionExitProgram, menu.ExitMainMenu));
-            return mainMenuOptions;
         }
     }
 }

@@ -16,6 +16,9 @@ namespace ADOnetSakilaKoppling.Services
             Input input = new Input(output);
             Repository repository = new Repository();
             Menu menu = new Menu(input, output, repository);
+
+            MenuBuilder.BuildMenuOptions(menu);
+
             menu.Start();
         }
     }

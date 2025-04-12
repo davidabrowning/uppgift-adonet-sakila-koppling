@@ -19,14 +19,17 @@ namespace ADOnetSakilaKoppling.Services
         private readonly Input _input;
         private readonly Output _output;
         private readonly Repository _repository;
-        private List<MenuOption> _menuOptions;
+        private List<MenuOption> _menuOptions = new List<MenuOption>();
         public Menu(Input input, Output output, Repository repository)
         {
             _running = true;
             _input = input;
             _output = output;
             _repository = repository;
-            _menuOptions = MenuHelper.GetMainMenuOptions(this);
+        }
+        public void AddMenuOption(MenuOption menuOption)
+        {
+            _menuOptions.Add(menuOption);
         }
         public void Start()
         {
