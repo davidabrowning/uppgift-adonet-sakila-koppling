@@ -50,11 +50,7 @@ namespace ADOnetSakilaKoppling.Menus
             if (MenuOption.IsValidId(menuChoice))
                 _menuOptions.Where(mo => mo.Id == menuChoice).First().Execute();
             else
-                ShowUnexpectedInput();
-        }
-        public void ShowUnexpectedInput()
-        {
-            _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
+                _output.WriteWarning(MenuHelper.WarningUnexpectedInput);
         }
         public void ExitMainMenu()
         {
