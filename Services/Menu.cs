@@ -1,5 +1,4 @@
-﻿using ADOnetSakilaKoppling.Enums;
-using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Models;
 using ADOnetSakilaKoppling.Repositories;
 using ADOnetSakilaKoppling.UI;
 using ADOnetSakilaKoppling.Utilities;

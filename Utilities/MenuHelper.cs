@@ -1,5 +1,4 @@
-﻿using ADOnetSakilaKoppling.Enums;
-using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Models;
 using ADOnetSakilaKoppling.Services;
 using ADOnetSakilaKoppling.UI;
 using System;
@@ -43,29 +42,6 @@ namespace ADOnetSakilaKoppling.Utilities
                 output.Write($"{items[i].ToString().PadRight(columnWidth)}");
             }
             output.WriteLine();
-        }
-        public static void PrintMainMenuOptions(Output output)
-        {
-            foreach (MenuOption menuOption in Enum.GetValues(typeof(MenuOption)))
-                output.WriteLine((int)menuOption + ". " + GetMainMenuOption(menuOption));
-        }
-        private static string GetMainMenuOption(MenuOption menuOption)
-        {
-            switch (menuOption)
-            {
-                case MenuOption.SearchByFirstName:
-                    return OptionSearchByFirstName;
-                case MenuOption.SearchByLastName:
-                    return OptionSearchByLastName;
-                case MenuOption.SearchByFullName:
-                    return OptionSearchByFullName;
-                case MenuOption.ListAllActors:
-                    return OptionListAllActors;
-                case MenuOption.Exit:
-                    return OptionExitProgram;
-                default:
-                    return WarningUnexpectedInput;
-            }
         }
         public static List<MenuOptionClass> GetMainMenuOptions(Menu menu)
         {
