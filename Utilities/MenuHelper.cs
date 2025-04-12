@@ -19,6 +19,7 @@ namespace ADOnetSakilaKoppling.Utilities
         public const string PromptChoice = "Ditt val";
         public const string PromptFirstName = "Ange förnamn";
         public const string PromptLastName = "Ange efternamn";
+        public const string WarningMissingMenuOption = "Varning: Menyalternativ saknas.";
         public const string WarningNoActorsFound = "Inga skådespelare hittades. Försök igen.";
         public const string WarningUnexpectedInput = "Oväntad inmatning. Försök igen.";
         public static string SubtitleFilmsWithActor(Actor actor)

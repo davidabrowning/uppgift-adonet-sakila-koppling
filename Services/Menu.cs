@@ -44,7 +44,7 @@ namespace ADOnetSakilaKoppling.Services
         {
             _output.WriteTitle(MenuHelper.TitleMain);
             foreach (MenuOption menuOption in _menuOptions)
-                _output.WriteLine(menuOption.ToString() ?? "Okänt menyalternativ");
+                _output.WriteLine(menuOption.ToString() ?? MenuHelper.WarningMissingMenuOption);
             _output.WriteLine();
         }
         private void HandleMainMenuSelection()
