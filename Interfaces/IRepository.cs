@@ -9,6 +9,7 @@ namespace ADOnetSakilaKoppling.Interfaces
 {
     internal interface IRepository
     {
+        List<Actor> GetActorsByField(List<ActorMapping> actorMappings);
         List<Actor> GetActorsByFirstName(string firstName);
         List<Actor> GetActorsByLastName(string lastName);
         List<Actor> GetActorsByFullName(string firstName, string lastName);

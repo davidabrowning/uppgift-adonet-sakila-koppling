@@ -97,6 +97,22 @@ namespace ADOnetSakilaKoppling.Repositories
                 }
             }
         }
+        public List<Actor> GetActorsByField(List<ActorMapping> actorMappings)
+        {
+            List<string[]> parameters = new List<string[]>();
+            string actorQuery =
+                ActorMapping.ActorSELECT +
+                ActorMapping.ActorFROM +
+                ActorMapping.GetWhereClause(actorMappings) +
+                ActorMapping.ActorORDERBY;
+            foreach (ActorMapping actorMapping in actorMappings)
+            {
+                parameters.Add(actorMapping.GetParameter());
+            }
+            List<Actor> actors = GetActors(actorQuery, parameters);
+            PopulateFilmLists(actors);
+            return actors;
+        }
         public List<Actor> GetActorsByFirstName(string firstName)
         {
             string actorQuery =

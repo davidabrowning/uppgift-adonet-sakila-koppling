@@ -23,7 +23,9 @@ namespace ADOnetSakilaKoppling.Services
         public void PrintFilmographiesByFirstName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
-            List<Actor> actors = _repository.GetActorsByFirstName(firstName);
+            List<ActorMapping> actorMappings = new List<ActorMapping>();
+            actorMappings.Add(new ActorMapping(ActorMapping.ActorFirstNameColumn, firstName));
+            List<Actor> actors = _repository.GetActorsByField(actorMappings);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByLastName()
