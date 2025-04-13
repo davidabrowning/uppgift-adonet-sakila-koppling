@@ -101,7 +101,7 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             List<string[]> parameters = new List<string[]>();
             string actorQuery =
-                ActorMapping.ActorSELECT +
+                ActorMapping.GetSelectClause() +
                 ActorMapping.ActorFROM +
                 ActorMapping.GetWhereClause(actorMappings) +
                 ActorMapping.ActorORDERBY;
