@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Interfaces
 {
-    internal interface IActorService
+    internal interface IActorFilmService
     {
         void PrintFilmographiesByFirstName();
         void PrintFilmographiesByLastName();

@@ -15,7 +15,7 @@ namespace ADOnetSakilaKoppling.Menus
         public const string OptionSearchByFullName = "Sök filmer enligt både förnamn och efternamn";
         public const string OptionListAllActors = "Lista ut alla skådespelare";
         public const string OptionExitProgram = "Avsluta programmet";
-        public static void BuildMenuOptions(IMenu menu, IActorService actorService)
+        public static void BuildMenuOptions(IMenu menu, IActorFilmService actorService)
         {
             menu.AddMenuOption(new MenuOption(OptionSearchByFirstName, actorService.PrintFilmographiesByFirstName));
             menu.AddMenuOption(new MenuOption(OptionSearchByLastName, actorService.PrintFilmographiesByLastName));

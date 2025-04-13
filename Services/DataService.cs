@@ -1,4 +1,5 @@
-﻿using ADOnetSakilaKoppling.Interfaces;
+﻿using ADOnetSakilaKoppling.Database;
+using ADOnetSakilaKoppling.Interfaces;
 using ADOnetSakilaKoppling.Menus;
 using ADOnetSakilaKoppling.Models;
 using System;
@@ -9,34 +10,49 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Services
 {
-    internal class DataService : IActorService
+    internal class DataService : IActorFilmService
     {
         private IInput _input;
         private IOutput _output;
-        private IRepository _repository;
-        public DataService(IInput input, IOutput output, IRepository repository)
+        private IActorFilmRepository _repository;
+        public DataService(IInput input, IOutput output, IActorFilmRepository actorFilmRepository)
         {
             _input = input;
             _output = output;
-            _repository = repository;
+            _repository = actorFilmRepository;
+        }
+        public int LongestActorName()
+        {
+            return _repository.LoadActors().Max(a => a.FullName.Length);
+        }
+        public int LongestFilmTitle()
+        {
+            return _repository.LoadFilms().Max(f => f.Title.Length);
         }
         public void PrintFilmographiesByFirstName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
-            List<Actor> actors = _repository.GetActorsByFirstName(firstName);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorFirstNameColumn, firstName));
+            List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<Actor> actors = _repository.GetActorsByLastName(lastName);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByFullName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<Actor> actors = _repository.GetActorsByFullName(firstName, lastName);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorFirstNameColumn, firstName));
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographies(List<Actor> actors)
@@ -50,14 +66,14 @@ namespace ADOnetSakilaKoppling.Services
         private void PrintFilmography(Actor actor)
         {
             _output.WriteSubtitle(MenuHelper.SubtitleFilmsWithActor(actor));
-            int columnWidth = _repository.LongestFilmTitle() + 1;
+            int columnWidth = LongestFilmTitle() + 1;
             MenuHelper.PrintList(_output, actor.Films, MenuHelper.FilmsPerColumn, columnWidth);
         }
         public void PrintAllActorNames()
         {
             _output.WriteSubtitle(MenuHelper.SubtitleListAllActors);
-            int columnWidth = _repository.LongestActorName() + 1;
-            MenuHelper.PrintList(_output, _repository.GetAllActors(), MenuHelper.ActorsPerColumn, columnWidth);
+            int columnWidth = LongestActorName() + 1;
+            MenuHelper.PrintList(_output, _repository.LoadActors(), MenuHelper.ActorsPerColumn, columnWidth);
         }
     }
 }
