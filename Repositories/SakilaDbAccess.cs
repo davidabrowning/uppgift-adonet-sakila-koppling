@@ -57,25 +57,14 @@ namespace ADOnetSakilaKoppling.Repositories
             }
             return actors;
         }
-        private List<Film> GetFilms(string filmQuery, List<Parameter> parameters)
-        {
-            List<Film> films = new List<Film>();
-            foreach (string[] filmResult in  GetQueryResults(filmQuery, parameters))
-            {
-                int filmId = int.Parse(filmResult[0]);
-                string filmTitle = filmResult[1];
-                films.Add(new Film(filmId, filmTitle));
-            }
-            return films;
-        }
-        private void PopulateFilmLists(List<Actor> actors)
+        private void LoadFilmLists(List<Actor> actors)
         {
             foreach (Actor actor in actors)
             {
-                PopulateFilmList(actor);
+                LoadFilmList(actor);
             }
         }
-        private void PopulateFilmList(Actor actor)
+        private void LoadFilmList(Actor actor)
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(
@@ -91,36 +80,42 @@ namespace ADOnetSakilaKoppling.Repositories
                 actor.Add(new Film(filmId, filmTitle));
             }
         }
-        public List<Actor> GetSomeActors(List<Parameter> parameters)
+        public List<Actor> LoadActors(List<Parameter> parameters)
         {
             string actorQuery = _queryBuilder.GetActorQuery(parameters);
             List<Actor> actors = GetActors(actorQuery, parameters);
-            PopulateFilmLists(actors);
+            LoadFilmLists(actors);
             return actors;
         }
-        public List<Actor> GetAllActors()
+        public List<Actor> LoadActors()
         {
             List<Parameter> emptyParameterList = new List<Parameter>();
-            return GetSomeActors(emptyParameterList);
+            return LoadActors(emptyParameterList);
         }
-        public List<Film> GetSomeFilms(List<Parameter> parameters)
+        public List<Film> LoadFilms(List<Parameter> parameters)
         {
+            List<Film> films = new List<Film>();
             string filmQuery = _queryBuilder.GetFilmQuery(parameters);
-            List<Film> films = GetFilms(filmQuery, parameters);
+            foreach (string[] filmResult in GetQueryResults(filmQuery, parameters))
+            {
+                int filmId = int.Parse(filmResult[0]);
+                string filmTitle = filmResult[1];
+                films.Add(new Film(filmId, filmTitle));
+            }
             return films;
         }
-        public List<Film> GetAllFilms()
+        public List<Film> LoadFilms()
         {
             List<Parameter> emptyParameterList = new List<Parameter>();
-            return GetSomeFilms(emptyParameterList);
+            return LoadFilms(emptyParameterList);
         }
         public int LongestActorName()
         {
-            return GetAllActors().Max(a => a.FullName.Length);
+            return LoadActors().Max(a => a.FullName.Length);
         }
         public int LongestFilmTitle()
         {
-            return GetAllFilms().Max(f => f.Title.Length);
+            return LoadFilms().Max(f => f.Title.Length);
         }
     }
 }

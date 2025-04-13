@@ -26,7 +26,7 @@ namespace ADOnetSakilaKoppling.Services
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorFirstNameColumn, firstName));
-            List<Actor> actors = _repository.GetSomeActors(parameters);
+            List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByLastName()
@@ -34,7 +34,7 @@ namespace ADOnetSakilaKoppling.Services
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetSomeActors(parameters);
+            List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByFullName()
@@ -44,7 +44,7 @@ namespace ADOnetSakilaKoppling.Services
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorFirstNameColumn, firstName));
             parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetSomeActors(parameters);
+            List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographies(List<Actor> actors)
@@ -65,7 +65,7 @@ namespace ADOnetSakilaKoppling.Services
         {
             _output.WriteSubtitle(MenuHelper.SubtitleListAllActors);
             int columnWidth = _repository.LongestActorName() + 1;
-            MenuHelper.PrintList(_output, _repository.GetAllActors(), MenuHelper.ActorsPerColumn, columnWidth);
+            MenuHelper.PrintList(_output, _repository.LoadActors(), MenuHelper.ActorsPerColumn, columnWidth);
         }
     }
 }

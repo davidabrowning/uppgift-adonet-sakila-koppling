@@ -10,8 +10,8 @@ namespace ADOnetSakilaKoppling.Interfaces
 {
     internal interface IRepository
     {
-        List<Actor> GetSomeActors(List<Parameter> parameters);
-        List<Actor> GetAllActors();
+        List<Actor> LoadActors(List<Parameter> parameters);
+        List<Actor> LoadActors();
         int LongestFilmTitle();
         int LongestActorName();
     }
