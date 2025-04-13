@@ -72,19 +72,23 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             foreach (Actor actor in actors)
             {
-                List<Parameter> parameters = new List<Parameter>();
-                parameters.Add(new Parameter(
-                    SakilaMapping.ActorTableName, 
-                    SakilaMapping.ActorIdColumn, 
-                    actor.ActorId.ToString()));
-                string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
-                List<string[]> filmResults = GetQueryResults(actorFilmQuery, parameters);
-                foreach (string[] filmResult in filmResults)
-                {
-                    int filmId = int.Parse(filmResult[0]);
-                    string filmTitle = filmResult[1];
-                    actor.Add(new Film(filmId, filmTitle));
-                }
+                PopulateFilmList(actor);
+            }
+        }
+        private void PopulateFilmList(Actor actor)
+        {
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(
+                SakilaMapping.ActorTableName,
+                SakilaMapping.ActorIdColumn,
+                actor.ActorId.ToString()));
+            string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
+            List<string[]> filmResults = GetQueryResults(actorFilmQuery, parameters);
+            foreach (string[] filmResult in filmResults)
+            {
+                int filmId = int.Parse(filmResult[0]);
+                string filmTitle = filmResult[1];
+                actor.Add(new Film(filmId, filmTitle));
             }
         }
         public List<Actor> GetSomeActors(List<Parameter> parameters)
