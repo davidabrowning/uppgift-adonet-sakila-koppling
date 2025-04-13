@@ -80,7 +80,7 @@ namespace ADOnetSakilaKoppling.Repositories
                     $"WHERE actor.actor_id = @actor_id " 
                     +"ORDER BY film.title ASC";
                 List<Parameter> parameters = new List<Parameter>();
-                parameters.Add(new Parameter(ActorMapping.ActorIdColumn, actor.ActorId.ToString()));
+                parameters.Add(new Parameter(SakilaMapping.ActorIdColumn, actor.ActorId.ToString()));
                 List<string[]> filmResults = GetQueryResults(filmQuery, parameters);
                 foreach (string[] filmResult in filmResults)
                 {
@@ -90,25 +90,17 @@ namespace ADOnetSakilaKoppling.Repositories
                 }
             }
         }
-        public List<Actor> GetActorsByFields(List<Parameter> parameters)
+        public List<Actor> GetSomeActors(List<Parameter> parameters)
         {
-            string actorQuery =
-                _queryBuilder.GetSelectClause() +
-                _queryBuilder.GetFromClause() +
-                _queryBuilder.GetWhereClause(parameters) +
-                _queryBuilder.GetOrderByClause();
+            string actorQuery = _queryBuilder.GetActorQuery(parameters);
             List<Actor> actors = GetActors(actorQuery, parameters);
             PopulateFilmLists(actors);
             return actors;
         }
         public List<Actor> GetAllActors()
         {
-            string actorQuery =
-                $"SELECT actor_id, first_name, last_name " +
-                $"FROM actor " +
-                $"ORDER BY last_name ASC, first_name ASC";
             List<Parameter> emptyParameterList = new List<Parameter>();
-            return GetActors(actorQuery, emptyParameterList);
+            return GetSomeActors(emptyParameterList);
         }
         public List<Film> GetAllFilms()
         {

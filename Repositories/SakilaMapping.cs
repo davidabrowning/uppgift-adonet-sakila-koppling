@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling.Models
+namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class ActorMapping
+    internal class SakilaMapping
     {
         public const string ActorTableName = "actor";
         public const string ActorIdColumn = "actor_id";

@@ -1,4 +1,4 @@
-﻿using ADOnetSakilaKoppling.Models;
+﻿using ADOnetSakilaKoppling.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,6 @@ namespace ADOnetSakilaKoppling.Interfaces
 {
     internal interface IQueryBuilder
     {
-        string GetSelectClause();
-        string GetFromClause();
-        string GetWhereClause(List<Parameter> parameters);
-        string GetOrderByClause();
+        string GetActorQuery(List<Parameter> parameters);
     }
 }

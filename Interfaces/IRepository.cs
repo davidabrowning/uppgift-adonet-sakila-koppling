@@ -1,4 +1,5 @@
 ﻿using ADOnetSakilaKoppling.Models;
+using ADOnetSakilaKoppling.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ADOnetSakilaKoppling.Interfaces
 {
     internal interface IRepository
     {
-        List<Actor> GetActorsByFields(List<Parameter> parameters);
+        List<Actor> GetSomeActors(List<Parameter> parameters);
         List<Actor> GetAllActors();
         int LongestFilmTitle();
         int LongestActorName();

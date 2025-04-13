@@ -1,6 +1,7 @@
 ﻿using ADOnetSakilaKoppling.Interfaces;
 using ADOnetSakilaKoppling.Menus;
 using ADOnetSakilaKoppling.Models;
+using ADOnetSakilaKoppling.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,16 +25,16 @@ namespace ADOnetSakilaKoppling.Services
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(ActorMapping.ActorFirstNameColumn, firstName));
-            List<Actor> actors = _repository.GetActorsByFields(parameters);
+            parameters.Add(new Parameter(SakilaMapping.ActorFirstNameColumn, firstName));
+            List<Actor> actors = _repository.GetSomeActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(ActorMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetActorsByFields(parameters);
+            parameters.Add(new Parameter(SakilaMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetSomeActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByFullName()
@@ -41,9 +42,9 @@ namespace ADOnetSakilaKoppling.Services
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(ActorMapping.ActorFirstNameColumn, firstName));
-            parameters.Add(new Parameter(ActorMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetActorsByFields(parameters);
+            parameters.Add(new Parameter(SakilaMapping.ActorFirstNameColumn, firstName));
+            parameters.Add(new Parameter(SakilaMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetSomeActors(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographies(List<Actor> actors)

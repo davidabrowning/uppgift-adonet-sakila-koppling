@@ -1,5 +1,4 @@
 ﻿using ADOnetSakilaKoppling.Interfaces;
-using ADOnetSakilaKoppling.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,28 +9,41 @@ namespace ADOnetSakilaKoppling.Repositories
 {
     internal class SakilaQueryBuilder : IQueryBuilder
     {
-        public string GetSelectClause()
+        public string GetActorQuery(List<Parameter> parameters)
         {
-            return $"SELECT {ActorMapping.ActorIdColumn}, " +
-                $"{ActorMapping.ActorFirstNameColumn}, " +
-                $"{ActorMapping.ActorLastNameColumn}";
+            return 
+                GetActorSelectClause() +
+                GetActorFromClause() +
+                GetActorWhereClause(parameters) +
+                GetActorOrderByClause();
         }
-        public string GetFromClause()
+        public string GetAllActorsQuery()
         {
-            return $" FROM {ActorMapping.ActorTableName}";
+            return GetActorQuery(new List<Parameter>());
         }
-        public string GetWhereClause(List<Parameter> parameters)
+        private string GetActorSelectClause()
+        {
+            return $"SELECT " +
+                $"{SakilaMapping.ActorIdColumn}, " +
+                $"{SakilaMapping.ActorFirstNameColumn}, " +
+                $"{SakilaMapping.ActorLastNameColumn}";
+        }
+        private string GetActorFromClause()
+        {
+            return $" FROM {SakilaMapping.ActorTableName}";
+        }
+        private string GetActorWhereClause(List<Parameter> parameters)
         {
             string whereClause = " WHERE 1 = 1";
             foreach (Parameter parameter in parameters)
             {
-                whereClause += $" AND {parameter.ColumnName} = @{parameter.ColumnName}";
+                whereClause += $" AND {parameter.ColumnName} = {parameter.ParameterName}";
             }
             return whereClause;
         }
-        public string GetOrderByClause()
+        private string GetActorOrderByClause()
         {
-            return $" ORDER BY {ActorMapping.ActorLastNameColumn} ASC, {ActorMapping.ActorFirstNameColumn} ASC";
+            return $" ORDER BY {SakilaMapping.ActorLastNameColumn} ASC, {SakilaMapping.ActorFirstNameColumn} ASC";
         }
     }
 }
