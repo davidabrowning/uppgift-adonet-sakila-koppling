@@ -13,12 +13,15 @@ namespace ADOnetSakilaKoppling.Repositories
 {
     internal class SakilaDbAccess : IRepository
     {
+        private readonly IConnectionStringBuilder _connectionStringBuilder;
+        public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder)
+        {
+            _connectionStringBuilder = connectionStringBuilder;
+        }
         private List<string[]> GetQueryResults(string query, List<string[]> parameters)
         {
             List<string[]> results = new List<string[]>();
-            string databaseConnectionString = GetConnectionString();
-
-            using (var connection = new SqlConnection(databaseConnectionString))
+            using (var connection = new SqlConnection(_connectionStringBuilder.GetConnectionString()))
             {
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
@@ -39,18 +42,6 @@ namespace ADOnetSakilaKoppling.Repositories
                 connection.Close();
             }
             return results;
-        }
-        private string GetConnectionString()
-        {
-            string appsettings = File.ReadAllText("Configurations/Appsettings.json");
-            JsonDocument appsettingsJson = JsonDocument.Parse(appsettings);
-            string connectionString =
-                appsettingsJson
-                .RootElement
-                .GetProperty("ConnectionStrings")
-                .GetProperty("Sakila")
-                .ToString();
-            return connectionString;
         }
         private List<Actor> GetActors(string actorQuery, List<string[]> parameters)
         {
