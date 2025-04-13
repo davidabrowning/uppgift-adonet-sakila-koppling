@@ -97,7 +97,7 @@ namespace ADOnetSakilaKoppling.Repositories
                 }
             }
         }
-        public List<Actor> GetActorsByField(List<ActorMapping> actorMappings)
+        public List<Actor> GetActorsByFields(List<ActorMapping> actorMappings)
         {
             List<string[]> parameters = new List<string[]>();
             string actorQuery =
