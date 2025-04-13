@@ -12,5 +12,8 @@ namespace ADOnetSakilaKoppling.Repositories
         public const string ActorIdColumn = "actor_id";
         public const string ActorFirstNameColumn = "first_name";
         public const string ActorLastNameColumn = "last_name";
+        public const string FilmTableName = "film";
+        public const string FilmIdColumn = "film_id";
+        public const string FilmTitleColumn = "title";
     }
 }

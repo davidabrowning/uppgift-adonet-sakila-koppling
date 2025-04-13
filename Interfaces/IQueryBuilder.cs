@@ -10,5 +10,6 @@ namespace ADOnetSakilaKoppling.Interfaces
     internal interface IQueryBuilder
     {
         string GetActorQuery(List<Parameter> parameters);
+        string GetFilmQuery(List<Parameter> parameters);
     }
 }

@@ -102,14 +102,16 @@ namespace ADOnetSakilaKoppling.Repositories
             List<Parameter> emptyParameterList = new List<Parameter>();
             return GetSomeActors(emptyParameterList);
         }
+        public List<Film> GetSomeFilms(List<Parameter> parameters)
+        {
+            string filmQuery = _queryBuilder.GetFilmQuery(parameters);
+            List<Film> films = GetFilms(filmQuery, parameters);
+            return films;
+        }
         public List<Film> GetAllFilms()
         {
-            string filmQuery =
-                $"SELECT film_id, title " +
-                $"FROM film " +
-                $"ORDER BY title ASC";
             List<Parameter> emptyParameterList = new List<Parameter>();
-            return GetFilms(filmQuery, emptyParameterList);
+            return GetSomeFilms(emptyParameterList);
         }
         public int LongestActorName()
         {
