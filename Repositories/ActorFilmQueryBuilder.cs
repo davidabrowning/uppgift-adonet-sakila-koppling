@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class SakilaQueryBuilder : IQueryBuilder
+    internal class ActorFilmQueryBuilder : IQueryBuilder
     {
         private string GetWhereClause(List<Parameter> parameters)
         {
@@ -30,21 +30,21 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             return 
                 $"SELECT" +
-                $" {SakilaMapping.ActorIdColumn}," +
-                $" {SakilaMapping.ActorFirstNameColumn}," +
-                $" {SakilaMapping.ActorLastNameColumn}";
+                $" {ActorFilmMapping.ActorIdColumn}," +
+                $" {ActorFilmMapping.ActorFirstNameColumn}," +
+                $" {ActorFilmMapping.ActorLastNameColumn}";
         }
         private string GetActorFromClause()
         {
             return 
-                $" FROM {SakilaMapping.ActorTableName}";
+                $" FROM {ActorFilmMapping.ActorTableName}";
         }
         private string GetActorOrderByClause()
         {
             return 
                 $" ORDER BY" +
-                $" {SakilaMapping.ActorLastNameColumn} ASC," +
-                $" {SakilaMapping.ActorFirstNameColumn} ASC";
+                $" {ActorFilmMapping.ActorLastNameColumn} ASC," +
+                $" {ActorFilmMapping.ActorFirstNameColumn} ASC";
         }
         public string GetFilmQuery(List<Parameter> parameters)
         {
@@ -58,18 +58,18 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             return 
                 $"SELECT" +
-                $" {SakilaMapping.FilmIdColumn}," +
-                $" {SakilaMapping.FilmTitleColumn}";
+                $" {ActorFilmMapping.FilmIdColumn}," +
+                $" {ActorFilmMapping.FilmTitleColumn}";
         }
         private string GetFilmFromClause()
         {
-            return $" FROM {SakilaMapping.FilmTableName}";
+            return $" FROM {ActorFilmMapping.FilmTableName}";
         }
         private string GetFilmOrderByClause()
         {
             return
                 $" ORDER BY" +
-                $" {SakilaMapping.FilmTitleColumn} ASC";
+                $" {ActorFilmMapping.FilmTitleColumn} ASC";
         }
         public string GetActorFilmQuery(List<Parameter> parameters)
         {
@@ -82,22 +82,22 @@ namespace ADOnetSakilaKoppling.Repositories
         private string GetActorFilmSelectClause()
         {
             return $"SELECT" +
-                $" {SakilaMapping.FilmTableName}.{SakilaMapping.FilmIdColumn}," +
-                $" {SakilaMapping.FilmTableName}.{SakilaMapping.FilmTitleColumn}";
+                $" {ActorFilmMapping.FilmTableName}.{ActorFilmMapping.FilmIdColumn}," +
+                $" {ActorFilmMapping.FilmTableName}.{ActorFilmMapping.FilmTitleColumn}";
         }
         private string GetActorFilmFromClause()
         {
-            return $" FROM {SakilaMapping.FilmTableName}" +
-                $" INNER JOIN {SakilaMapping.ActorFilmTableName}" +
-                $" ON {SakilaMapping.ActorFilmTableName}.{SakilaMapping.ActorFilmFilmIdColumn}" +
-                $" = {SakilaMapping.FilmTableName}.{SakilaMapping.FilmIdColumn}" +
-                $" INNER JOIN {SakilaMapping.ActorTableName}" +
-                $" ON {SakilaMapping.ActorTableName}.{SakilaMapping.ActorIdColumn}" +
-                $" = {SakilaMapping.ActorFilmTableName}.{SakilaMapping.ActorFilmActorIdColumn}";
+            return $" FROM {ActorFilmMapping.FilmTableName}" +
+                $" INNER JOIN {ActorFilmMapping.ActorFilmTableName}" +
+                $" ON {ActorFilmMapping.ActorFilmTableName}.{ActorFilmMapping.ActorFilmFilmIdColumn}" +
+                $" = {ActorFilmMapping.FilmTableName}.{ActorFilmMapping.FilmIdColumn}" +
+                $" INNER JOIN {ActorFilmMapping.ActorTableName}" +
+                $" ON {ActorFilmMapping.ActorTableName}.{ActorFilmMapping.ActorIdColumn}" +
+                $" = {ActorFilmMapping.ActorFilmTableName}.{ActorFilmMapping.ActorFilmActorIdColumn}";
         }
         private string GetActorFilmOrderByClause()
         {
-            return $" ORDER BY {SakilaMapping.FilmTitleColumn} ASC";
+            return $" ORDER BY {ActorFilmMapping.FilmTitleColumn} ASC";
         }
     }
 }

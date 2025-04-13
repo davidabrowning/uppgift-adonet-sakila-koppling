@@ -33,7 +33,7 @@ namespace ADOnetSakilaKoppling.Services
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorFirstNameColumn, firstName));
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorFirstNameColumn, firstName));
             List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
@@ -41,7 +41,7 @@ namespace ADOnetSakilaKoppling.Services
         {
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorLastNameColumn, lastName));
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorLastNameColumn, lastName));
             List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }
@@ -50,8 +50,8 @@ namespace ADOnetSakilaKoppling.Services
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorFirstNameColumn, firstName));
-            parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorLastNameColumn, lastName));
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorFirstNameColumn, firstName));
+            parameters.Add(new Parameter(ActorFilmMapping.ActorTableName, ActorFilmMapping.ActorLastNameColumn, lastName));
             List<Actor> actors = _repository.LoadActors(parameters);
             PrintFilmographies(actors);
         }

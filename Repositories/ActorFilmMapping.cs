@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class SakilaMapping
+    internal static class ActorFilmMapping
     {
         public const string ActorTableName = "actor";
         public const string ActorIdColumn = "actor_id";

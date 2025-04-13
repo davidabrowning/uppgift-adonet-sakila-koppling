@@ -64,8 +64,8 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(
-                SakilaMapping.ActorTableName,
-                SakilaMapping.ActorIdColumn,
+                ActorFilmMapping.ActorTableName,
+                ActorFilmMapping.ActorIdColumn,
                 actor.ActorId.ToString()));
             string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
             List<string[]> filmResults = _repository.GetQueryResults(actorFilmQuery, parameters);
