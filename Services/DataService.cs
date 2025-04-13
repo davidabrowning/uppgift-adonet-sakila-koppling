@@ -1,7 +1,7 @@
-﻿using ADOnetSakilaKoppling.Interfaces;
+﻿using ADOnetSakilaKoppling.Database;
+using ADOnetSakilaKoppling.Interfaces;
 using ADOnetSakilaKoppling.Menus;
 using ADOnetSakilaKoppling.Models;
-using ADOnetSakilaKoppling.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

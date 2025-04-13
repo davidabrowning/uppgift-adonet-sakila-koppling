@@ -1,5 +1,5 @@
-﻿using ADOnetSakilaKoppling.Models;
-using ADOnetSakilaKoppling.Repositories;
+﻿using ADOnetSakilaKoppling.Database;
+using ADOnetSakilaKoppling.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

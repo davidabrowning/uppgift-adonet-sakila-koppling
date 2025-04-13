@@ -9,12 +9,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ADOnetSakilaKoppling.Repositories
+namespace ADOnetSakilaKoppling.Database
 {
-    internal class SakilaDbAccess : IDbAccess
+    internal class DbAccess : IDbAccess
     {
         private readonly IConnectionStringBuilder _connectionStringBuilder;
-        public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder)
+        public DbAccess(IConnectionStringBuilder connectionStringBuilder)
         {
             _connectionStringBuilder = connectionStringBuilder;
         }
