@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class ActorFilmRepository
+    internal class ActorFilmRepository : IActorFilmRepository
     {
         private readonly IQueryBuilder _queryBuilder;
         private readonly IRepository _repository;

@@ -14,8 +14,8 @@ namespace ADOnetSakilaKoppling.Services
     {
         private IInput _input;
         private IOutput _output;
-        private ActorFilmRepository _repository;
-        public DataService(IInput input, IOutput output, ActorFilmRepository actorFilmRepository)
+        private IActorFilmRepository _repository;
+        public DataService(IInput input, IOutput output, IActorFilmRepository actorFilmRepository)
         {
             _input = input;
             _output = output;
