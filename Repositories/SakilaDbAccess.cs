@@ -113,32 +113,6 @@ namespace ADOnetSakilaKoppling.Repositories
             PopulateFilmLists(actors);
             return actors;
         }
-        public List<Actor> GetActorsByFirstName(string firstName)
-        {
-            string actorQuery =
-                $"SELECT actor_id, first_name, last_name " +
-                $"FROM actor " +
-                $"WHERE first_name = @firstName " +
-                $"ORDER BY last_name ASC, first_name ASC";
-            List<string[]> parameters = new List<string[]>();
-            parameters.Add(["@firstName", firstName]);
-            List<Actor> actors = GetActors(actorQuery, parameters);
-            PopulateFilmLists(actors);
-            return actors;
-        }
-        public List<Actor> GetActorsByLastName(string lastName)
-        {
-            string actorQuery =
-                $"SELECT actor_id, first_name, last_name " +
-                $"FROM actor " +
-                $"WHERE last_name = @lastName " +
-                $"ORDER BY last_name ASC, first_name ASC";
-            List<string[]> parameters = new List<string[]>();
-            parameters.Add(["@lastName", lastName]);
-            List<Actor> actors = GetActors(actorQuery, parameters);
-            PopulateFilmLists(actors);
-            return actors;
-        }
         public List<Actor> GetActorsByFullName(string firstName, string lastName)
         {
             string actorQuery =
