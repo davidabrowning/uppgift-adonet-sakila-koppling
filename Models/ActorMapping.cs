@@ -12,7 +12,6 @@ namespace ADOnetSakilaKoppling.Models
         public const string ActorIdColumn = "actor_id";
         public const string ActorFirstNameColumn = "first_name";
         public const string ActorLastNameColumn = "last_name";
-        public const string ActorFROM = $" FROM {ActorTableName}";
         public const string ActorORDERBY = $" ORDER BY {ActorLastNameColumn} ASC, {ActorFirstNameColumn} ASC";
         private string _columnName;
         private string _value;
@@ -24,6 +23,10 @@ namespace ADOnetSakilaKoppling.Models
         public static string GetSelectClause()
         {
             return $"SELECT {ActorIdColumn}, {ActorFirstNameColumn}, {ActorLastNameColumn}";
+        }
+        public static string GetFromClause()
+        {
+            return $" FROM {ActorTableName}";
         }
         public static string GetWhereClause(List<ActorMapping> actorMappings)
         {
