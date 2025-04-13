@@ -40,7 +40,10 @@ namespace ADOnetSakilaKoppling.Services
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<Actor> actors = _repository.GetActorsByFullName(firstName, lastName);
+            List<ActorMapping> actorMappings = new List<ActorMapping>();
+            actorMappings.Add(new ActorMapping(ActorMapping.ActorFirstNameColumn, firstName));
+            actorMappings.Add(new ActorMapping(ActorMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetActorsByFields(actorMappings);
             PrintFilmographies(actors);
         }
         public void PrintFilmographies(List<Actor> actors)
