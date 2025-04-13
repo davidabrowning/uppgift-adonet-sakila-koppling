@@ -23,27 +23,27 @@ namespace ADOnetSakilaKoppling.Services
         public void PrintFilmographiesByFirstName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
-            List<ActorMapping> actorMappings = new List<ActorMapping>();
-            actorMappings.Add(new ActorMapping(ActorMapping.ActorFirstNameColumn, firstName));
-            List<Actor> actors = _repository.GetActorsByFields(actorMappings);
+            List<Models.SqlParameter> sqlParameters = new List<SqlParameter>();
+            sqlParameters.Add(new SqlParameter(ActorMapping.ActorFirstNameColumn, firstName));
+            List<Actor> actors = _repository.GetActorsByFields(sqlParameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<ActorMapping> actorMappings = new List<ActorMapping>();
-            actorMappings.Add(new ActorMapping(ActorMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetActorsByFields(actorMappings);
+            List<Models.SqlParameter> sqlParameters = new List<SqlParameter>();
+            sqlParameters.Add(new SqlParameter(ActorMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetActorsByFields(sqlParameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByFullName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<ActorMapping> actorMappings = new List<ActorMapping>();
-            actorMappings.Add(new ActorMapping(ActorMapping.ActorFirstNameColumn, firstName));
-            actorMappings.Add(new ActorMapping(ActorMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetActorsByFields(actorMappings);
+            List<Models.SqlParameter> sqlParameters = new List<SqlParameter>();
+            sqlParameters.Add(new SqlParameter(ActorMapping.ActorFirstNameColumn, firstName));
+            sqlParameters.Add(new SqlParameter(ActorMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetActorsByFields(sqlParameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographies(List<Actor> actors)
