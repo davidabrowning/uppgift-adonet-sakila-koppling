@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Models
 {
-    internal class SqlParameter
+    internal class Parameter
     {
         public string ColumnName { get; private set; }
-        public string Name { get { return $"@{ColumnName}"; } }
+        public string ParameterName { get { return $"@{ColumnName}"; } }
         public string Value { get; private set; }
-        public SqlParameter(string columnName, string value)
+        public Parameter(string columnName, string value)
         {
             ColumnName = columnName;
             Value = value;

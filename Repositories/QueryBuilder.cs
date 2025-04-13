@@ -19,12 +19,12 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             return $" FROM {ActorMapping.ActorTableName}";
         }
-        public static string GetWhereClause(List<SqlParameter> sqlParameters)
+        public static string GetWhereClause(List<Parameter> parameters)
         {
             string whereClause = " WHERE 1 = 1";
-            foreach (SqlParameter sqlParameter in sqlParameters)
+            foreach (Parameter parameter in parameters)
             {
-                whereClause += $" AND {sqlParameter.ColumnName} = @{sqlParameter.ColumnName}";
+                whereClause += $" AND {parameter.ColumnName} = @{parameter.ColumnName}";
             }
             return whereClause;
         }

@@ -23,27 +23,27 @@ namespace ADOnetSakilaKoppling.Services
         public void PrintFilmographiesByFirstName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
-            List<Models.SqlParameter> sqlParameters = new List<SqlParameter>();
-            sqlParameters.Add(new SqlParameter(ActorMapping.ActorFirstNameColumn, firstName));
-            List<Actor> actors = _repository.GetActorsByFields(sqlParameters);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ActorMapping.ActorFirstNameColumn, firstName));
+            List<Actor> actors = _repository.GetActorsByFields(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByLastName()
         {
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<Models.SqlParameter> sqlParameters = new List<SqlParameter>();
-            sqlParameters.Add(new SqlParameter(ActorMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetActorsByFields(sqlParameters);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ActorMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetActorsByFields(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographiesByFullName()
         {
             string firstName = _input.GetString(MenuHelper.PromptFirstName);
             string lastName = _input.GetString(MenuHelper.PromptLastName);
-            List<Models.SqlParameter> sqlParameters = new List<SqlParameter>();
-            sqlParameters.Add(new SqlParameter(ActorMapping.ActorFirstNameColumn, firstName));
-            sqlParameters.Add(new SqlParameter(ActorMapping.ActorLastNameColumn, lastName));
-            List<Actor> actors = _repository.GetActorsByFields(sqlParameters);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ActorMapping.ActorFirstNameColumn, firstName));
+            parameters.Add(new Parameter(ActorMapping.ActorLastNameColumn, lastName));
+            List<Actor> actors = _repository.GetActorsByFields(parameters);
             PrintFilmographies(actors);
         }
         public void PrintFilmographies(List<Actor> actors)

@@ -18,7 +18,7 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             _connectionStringBuilder = connectionStringBuilder;
         }
-        private List<string[]> GetQueryResults(string query, List<Models.SqlParameter> sqlParameters)
+        private List<string[]> GetQueryResults(string query, List<Parameter> parameters)
         {
             List<string[]> results = new List<string[]>();
             using (var connection = new SqlConnection(_connectionStringBuilder.GetConnectionString()))
@@ -26,8 +26,8 @@ namespace ADOnetSakilaKoppling.Repositories
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
                 {
-                    foreach (Models.SqlParameter sqlParameter in sqlParameters)
-                        command.Parameters.AddWithValue(sqlParameter.Name, sqlParameter.Value);
+                    foreach (Parameter parameter in parameters)
+                        command.Parameters.AddWithValue(parameter.ParameterName, parameter.Value);
                     using (var sqlReader = command.ExecuteReader())
                     {
                         while (sqlReader.Read())
@@ -43,10 +43,10 @@ namespace ADOnetSakilaKoppling.Repositories
             }
             return results;
         }
-        private List<Actor> GetActors(string actorQuery, List<Models.SqlParameter> sqlParameters)
+        private List<Actor> GetActors(string actorQuery, List<Parameter> parameters)
         {
             List<Actor> actors = new List<Actor>();
-            foreach (string[] actorResult in GetQueryResults(actorQuery, sqlParameters))
+            foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
             {
                 int actorId = int.Parse(actorResult[0]);
                 string actorFirstName = actorResult[1];
@@ -55,10 +55,10 @@ namespace ADOnetSakilaKoppling.Repositories
             }
             return actors;
         }
-        private List<Film> GetFilms(string filmQuery, List<Models.SqlParameter> sqlParameters)
+        private List<Film> GetFilms(string filmQuery, List<Parameter> parameters)
         {
             List<Film> films = new List<Film>();
-            foreach (string[] filmResult in  GetQueryResults(filmQuery, sqlParameters))
+            foreach (string[] filmResult in  GetQueryResults(filmQuery, parameters))
             {
                 int filmId = int.Parse(filmResult[0]);
                 string filmTitle = filmResult[1];
@@ -77,9 +77,9 @@ namespace ADOnetSakilaKoppling.Repositories
                     $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
                     $"WHERE actor.actor_id = @actor_id " 
                     +"ORDER BY film.title ASC";
-                List<Models.SqlParameter> sqlParameters = new List<Models.SqlParameter>();
-                sqlParameters.Add(new Models.SqlParameter(ActorMapping.ActorIdColumn, actor.ActorId.ToString()));
-                List<string[]> filmResults = GetQueryResults(filmQuery, sqlParameters);
+                List<Parameter> parameters = new List<Parameter>();
+                parameters.Add(new Parameter(ActorMapping.ActorIdColumn, actor.ActorId.ToString()));
+                List<string[]> filmResults = GetQueryResults(filmQuery, parameters);
                 foreach (string[] filmResult in filmResults)
                 {
                     int filmId = int.Parse(filmResult[0]);
@@ -88,14 +88,14 @@ namespace ADOnetSakilaKoppling.Repositories
                 }
             }
         }
-        public List<Actor> GetActorsByFields(List<Models.SqlParameter> sqlParameters)
+        public List<Actor> GetActorsByFields(List<Parameter> parameters)
         {
             string actorQuery =
                 QueryBuilder.GetSelectClause() +
                 QueryBuilder.GetFromClause() +
-                QueryBuilder.GetWhereClause(sqlParameters) +
+                QueryBuilder.GetWhereClause(parameters) +
                 QueryBuilder.GetOrderByClause();
-            List<Actor> actors = GetActors(actorQuery, sqlParameters);
+            List<Actor> actors = GetActors(actorQuery, parameters);
             PopulateFilmLists(actors);
             return actors;
         }
@@ -105,8 +105,8 @@ namespace ADOnetSakilaKoppling.Repositories
                 $"SELECT actor_id, first_name, last_name " +
                 $"FROM actor " +
                 $"ORDER BY last_name ASC, first_name ASC";
-            List<Models.SqlParameter> emptySqlParameterList = new List<Models.SqlParameter>();
-            return GetActors(actorQuery, emptySqlParameterList);
+            List<Parameter> emptyParameterList = new List<Parameter>();
+            return GetActors(actorQuery, emptyParameterList);
         }
         public List<Film> GetAllFilms()
         {
@@ -114,8 +114,8 @@ namespace ADOnetSakilaKoppling.Repositories
                 $"SELECT film_id, title " +
                 $"FROM film " +
                 $"ORDER BY title ASC";
-            List<Models.SqlParameter> emptySqlParameterList = new List<Models.SqlParameter>();
-            return GetFilms(filmQuery, emptySqlParameterList);
+            List<Parameter> emptyParameterList = new List<Parameter>();
+            return GetFilms(filmQuery, emptyParameterList);
         }
         public int LongestActorName()
         {

@@ -9,7 +9,7 @@ namespace ADOnetSakilaKoppling.Interfaces
 {
     internal interface IRepository
     {
-        List<Actor> GetActorsByFields(List<Models.SqlParameter> sqlParameters);
+        List<Actor> GetActorsByFields(List<Parameter> parameters);
         List<Actor> GetAllActors();
         int LongestFilmTitle();
         int LongestActorName();
