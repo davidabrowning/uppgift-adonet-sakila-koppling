@@ -10,16 +10,24 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Services
 {
-    internal class DataService : IActorService
+    internal class DataService : IActorFilmService
     {
         private IInput _input;
         private IOutput _output;
-        private IRepository _repository;
-        public DataService(IInput input, IOutput output, IRepository repository)
+        private ActorFilmRepository _repository;
+        public DataService(IInput input, IOutput output, ActorFilmRepository actorFilmRepository)
         {
             _input = input;
             _output = output;
-            _repository = repository;
+            _repository = actorFilmRepository;
+        }
+        public int LongestActorName()
+        {
+            return _repository.LoadActors().Max(a => a.FullName.Length);
+        }
+        public int LongestFilmTitle()
+        {
+            return _repository.LoadFilms().Max(f => f.Title.Length);
         }
         public void PrintFilmographiesByFirstName()
         {
@@ -58,13 +66,13 @@ namespace ADOnetSakilaKoppling.Services
         private void PrintFilmography(Actor actor)
         {
             _output.WriteSubtitle(MenuHelper.SubtitleFilmsWithActor(actor));
-            int columnWidth = _repository.LongestFilmTitle() + 1;
+            int columnWidth = LongestFilmTitle() + 1;
             MenuHelper.PrintList(_output, actor.Films, MenuHelper.FilmsPerColumn, columnWidth);
         }
         public void PrintAllActorNames()
         {
             _output.WriteSubtitle(MenuHelper.SubtitleListAllActors);
-            int columnWidth = _repository.LongestActorName() + 1;
+            int columnWidth = LongestActorName() + 1;
             MenuHelper.PrintList(_output, _repository.LoadActors(), MenuHelper.ActorsPerColumn, columnWidth);
         }
     }

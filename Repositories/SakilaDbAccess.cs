@@ -14,13 +14,11 @@ namespace ADOnetSakilaKoppling.Repositories
     internal class SakilaDbAccess : IRepository
     {
         private readonly IConnectionStringBuilder _connectionStringBuilder;
-        private readonly IQueryBuilder _queryBuilder;
-        public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder, IQueryBuilder queryBuilder)
+        public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder)
         {
             _connectionStringBuilder = connectionStringBuilder;
-            _queryBuilder = queryBuilder;
         }
-        private List<string[]> GetQueryResults(string query, List<Parameter> parameters)
+        public List<string[]> GetQueryResults(string query, List<Parameter> parameters)
         {
             List<string[]> results = new List<string[]>();
             using (var connection = new SqlConnection(_connectionStringBuilder.GetConnectionString()))
@@ -44,78 +42,6 @@ namespace ADOnetSakilaKoppling.Repositories
                 connection.Close();
             }
             return results;
-        }
-        private List<Actor> GetActors(string actorQuery, List<Parameter> parameters)
-        {
-            List<Actor> actors = new List<Actor>();
-            foreach (string[] actorResult in GetQueryResults(actorQuery, parameters))
-            {
-                int actorId = int.Parse(actorResult[0]);
-                string actorFirstName = actorResult[1];
-                string actorLastName = actorResult[2];
-                actors.Add(new Actor(actorId, actorFirstName, actorLastName));
-            }
-            return actors;
-        }
-        private void LoadFilmLists(List<Actor> actors)
-        {
-            foreach (Actor actor in actors)
-            {
-                LoadFilmList(actor);
-            }
-        }
-        private void LoadFilmList(Actor actor)
-        {
-            List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(
-                SakilaMapping.ActorTableName,
-                SakilaMapping.ActorIdColumn,
-                actor.ActorId.ToString()));
-            string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
-            List<string[]> filmResults = GetQueryResults(actorFilmQuery, parameters);
-            foreach (string[] filmResult in filmResults)
-            {
-                int filmId = int.Parse(filmResult[0]);
-                string filmTitle = filmResult[1];
-                actor.Add(new Film(filmId, filmTitle));
-            }
-        }
-        public List<Actor> LoadActors(List<Parameter> parameters)
-        {
-            string actorQuery = _queryBuilder.GetActorQuery(parameters);
-            List<Actor> actors = GetActors(actorQuery, parameters);
-            LoadFilmLists(actors);
-            return actors;
-        }
-        public List<Actor> LoadActors()
-        {
-            List<Parameter> emptyParameterList = new List<Parameter>();
-            return LoadActors(emptyParameterList);
-        }
-        public List<Film> LoadFilms(List<Parameter> parameters)
-        {
-            List<Film> films = new List<Film>();
-            string filmQuery = _queryBuilder.GetFilmQuery(parameters);
-            foreach (string[] filmResult in GetQueryResults(filmQuery, parameters))
-            {
-                int filmId = int.Parse(filmResult[0]);
-                string filmTitle = filmResult[1];
-                films.Add(new Film(filmId, filmTitle));
-            }
-            return films;
-        }
-        public List<Film> LoadFilms()
-        {
-            List<Parameter> emptyParameterList = new List<Parameter>();
-            return LoadFilms(emptyParameterList);
-        }
-        public int LongestActorName()
-        {
-            return LoadActors().Max(a => a.FullName.Length);
-        }
-        public int LongestFilmTitle()
-        {
-            return LoadFilms().Max(f => f.Title.Length);
         }
     }
 }

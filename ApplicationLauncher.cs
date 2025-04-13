@@ -17,13 +17,13 @@ namespace ADOnetSakilaKoppling
         {
             IOutput output = new ConsoleOutput();
             IInput input = new Keyboard(output);
-            IRepository repository = new SakilaDbAccess(
-                new SakilaConnectionStringBuilder(),
-                new SakilaQueryBuilder());
-            IActorService actorService = new DataService(input, output, repository);
+            IRepository repository = new SakilaDbAccess(new SakilaConnectionStringBuilder());
+            ActorFilmRepository actorFilmRepository = new ActorFilmRepository(
+                new SakilaQueryBuilder(), repository);
+            IActorFilmService actorFilmService = new DataService(input, output, actorFilmRepository);
             IMenu menu = new MainMenu(input, output);
 
-            MenuBuilder.BuildMenuOptions(menu, actorService);
+            MenuBuilder.BuildMenuOptions(menu, actorFilmService);
 
             menu.Start();
         }
