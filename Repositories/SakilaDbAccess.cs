@@ -14,9 +14,11 @@ namespace ADOnetSakilaKoppling.Repositories
     internal class SakilaDbAccess : IRepository
     {
         private readonly IConnectionStringBuilder _connectionStringBuilder;
-        public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder)
+        private readonly IQueryBuilder _queryBuilder;
+        public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder, IQueryBuilder queryBuilder)
         {
             _connectionStringBuilder = connectionStringBuilder;
+            _queryBuilder = queryBuilder;
         }
         private List<string[]> GetQueryResults(string query, List<Parameter> parameters)
         {
@@ -91,10 +93,10 @@ namespace ADOnetSakilaKoppling.Repositories
         public List<Actor> GetActorsByFields(List<Parameter> parameters)
         {
             string actorQuery =
-                QueryBuilder.GetSelectClause() +
-                QueryBuilder.GetFromClause() +
-                QueryBuilder.GetWhereClause(parameters) +
-                QueryBuilder.GetOrderByClause();
+                _queryBuilder.GetSelectClause() +
+                _queryBuilder.GetFromClause() +
+                _queryBuilder.GetWhereClause(parameters) +
+                _queryBuilder.GetOrderByClause();
             List<Actor> actors = GetActors(actorQuery, parameters);
             PopulateFilmLists(actors);
             return actors;
