@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class SakilaDbConnection : IRepository
+    internal class SakilaDbAccess : IRepository
     {
         private List<string[]> GetQueryResults(string query, List<string[]> parameters)
         {
