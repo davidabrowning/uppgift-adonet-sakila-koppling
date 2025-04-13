@@ -73,7 +73,10 @@ namespace ADOnetSakilaKoppling.Repositories
             foreach (Actor actor in actors)
             {
                 List<Parameter> parameters = new List<Parameter>();
-                parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorIdColumn, actor.ActorId.ToString()));
+                parameters.Add(new Parameter(
+                    SakilaMapping.ActorTableName, 
+                    SakilaMapping.ActorIdColumn, 
+                    actor.ActorId.ToString()));
                 string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
                 List<string[]> filmResults = GetQueryResults(actorFilmQuery, parameters);
                 foreach (string[] filmResult in filmResults)
