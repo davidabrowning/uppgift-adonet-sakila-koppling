@@ -8,11 +8,13 @@ namespace ADOnetSakilaKoppling.Repositories
 {
     internal class Parameter
     {
+        public string TableName { get; private set; }
         public string ColumnName { get; private set; }
         public string ParameterName { get { return $"@{ColumnName}"; } }
         public string Value { get; private set; }
-        public Parameter(string columnName, string value)
+        public Parameter(string tableName, string columnName, string value)
         {
+            TableName = tableName;
             ColumnName = columnName;
             Value = value;
         }

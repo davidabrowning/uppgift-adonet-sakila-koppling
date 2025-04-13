@@ -11,5 +11,6 @@ namespace ADOnetSakilaKoppling.Interfaces
     {
         string GetActorQuery(List<Parameter> parameters);
         string GetFilmQuery(List<Parameter> parameters);
+        string GetActorFilmQuery(List<Parameter> parameters);
     }
 }

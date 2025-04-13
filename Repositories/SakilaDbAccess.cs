@@ -72,16 +72,10 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             foreach (Actor actor in actors)
             {
-                string filmQuery = 
-                    $"SELECT film.film_id, film.title " +
-                    $"FROM film " +
-                    $"INNER JOIN film_actor ON film_actor.film_id = film.film_id " +
-                    $"INNER JOIN actor ON actor.actor_id = film_actor.actor_id " +
-                    $"WHERE actor.actor_id = @actor_id " 
-                    +"ORDER BY film.title ASC";
                 List<Parameter> parameters = new List<Parameter>();
-                parameters.Add(new Parameter(SakilaMapping.ActorIdColumn, actor.ActorId.ToString()));
-                List<string[]> filmResults = GetQueryResults(filmQuery, parameters);
+                parameters.Add(new Parameter(SakilaMapping.ActorTableName, SakilaMapping.ActorIdColumn, actor.ActorId.ToString()));
+                string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
+                List<string[]> filmResults = GetQueryResults(actorFilmQuery, parameters);
                 foreach (string[] filmResult in filmResults)
                 {
                     int filmId = int.Parse(filmResult[0]);

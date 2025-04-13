@@ -9,12 +9,21 @@ namespace ADOnetSakilaKoppling.Repositories
 {
     internal class SakilaQueryBuilder : IQueryBuilder
     {
+        private string GetWhereClause(List<Parameter> parameters)
+        {
+            string whereClause = " WHERE 1 = 1";
+            foreach (Parameter parameter in parameters)
+            {
+                whereClause += $" AND {parameter.TableName}.{parameter.ColumnName} = {parameter.ParameterName}";
+            }
+            return whereClause;
+        }
         public string GetActorQuery(List<Parameter> parameters)
         {
             return 
                 GetActorSelectClause() +
                 GetActorFromClause() +
-                GetActorWhereClause(parameters) +
+                GetWhereClause(parameters) +
                 GetActorOrderByClause();
         }
         private string GetActorSelectClause()
@@ -30,15 +39,6 @@ namespace ADOnetSakilaKoppling.Repositories
             return 
                 $" FROM {SakilaMapping.ActorTableName}";
         }
-        private string GetActorWhereClause(List<Parameter> parameters)
-        {
-            string whereClause = " WHERE 1 = 1";
-            foreach (Parameter parameter in parameters)
-            {
-                whereClause += $" AND {parameter.ColumnName} = {parameter.ParameterName}";
-            }
-            return whereClause;
-        }
         private string GetActorOrderByClause()
         {
             return 
@@ -51,7 +51,7 @@ namespace ADOnetSakilaKoppling.Repositories
             return
                 GetFilmSelectClause() +
                 GetFilmFromClause() +
-                GetFilmWhereClause(parameters) +
+                GetWhereClause(parameters) +
                 GetFilmOrderByClause();
         }
         private string GetFilmSelectClause()
@@ -65,20 +65,39 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             return $" FROM {SakilaMapping.FilmTableName}";
         }
-        private string GetFilmWhereClause(List<Parameter> parameters)
-        {
-            string whereClause = " WHERE 1 = 1";
-            foreach (Parameter parameter in parameters)
-            {
-                whereClause += $" AND {parameter.ColumnName} = {parameter.ParameterName}";
-            }
-            return whereClause;
-        }
         private string GetFilmOrderByClause()
         {
             return
                 $" ORDER BY" +
                 $" {SakilaMapping.FilmTitleColumn} ASC";
+        }
+        public string GetActorFilmQuery(List<Parameter> parameters)
+        {
+            return
+                GetActorFilmSelectClause() +
+                GetActorFilmFromClause() +
+                GetWhereClause(parameters) +
+                GetActorFilmOrderByClause();
+        }
+        private string GetActorFilmSelectClause()
+        {
+            return $"SELECT" +
+                $" {SakilaMapping.FilmTableName}.{SakilaMapping.FilmIdColumn}," +
+                $" {SakilaMapping.FilmTableName}.{SakilaMapping.FilmTitleColumn}";
+        }
+        private string GetActorFilmFromClause()
+        {
+            return $" FROM {SakilaMapping.FilmTableName}" +
+                $" INNER JOIN {SakilaMapping.ActorFilmTableName}" +
+                $" ON {SakilaMapping.ActorFilmTableName}.{SakilaMapping.ActorFilmFilmIdColumn}" +
+                $" = {SakilaMapping.FilmTableName}.{SakilaMapping.FilmIdColumn}" +
+                $" INNER JOIN {SakilaMapping.ActorTableName}" +
+                $" ON {SakilaMapping.ActorTableName}.{SakilaMapping.ActorIdColumn}" +
+                $" = {SakilaMapping.ActorFilmTableName}.{SakilaMapping.ActorFilmActorIdColumn}";
+        }
+        private string GetActorFilmOrderByClause()
+        {
+            return $" ORDER BY {SakilaMapping.FilmTitleColumn} ASC";
         }
     }
 }
