@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Interfaces
 {
-    internal interface IRepository
+    internal interface IDbAccess
     {
         public List<string[]> GetQueryResults(string query, List<Parameter> parameters);
     }

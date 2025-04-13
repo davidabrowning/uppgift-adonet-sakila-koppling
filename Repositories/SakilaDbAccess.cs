@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ADOnetSakilaKoppling.Repositories
 {
-    internal class SakilaDbAccess : IRepository
+    internal class SakilaDbAccess : IDbAccess
     {
         private readonly IConnectionStringBuilder _connectionStringBuilder;
         public SakilaDbAccess(IConnectionStringBuilder connectionStringBuilder)

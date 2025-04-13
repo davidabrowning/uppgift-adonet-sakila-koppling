@@ -11,8 +11,8 @@ namespace ADOnetSakilaKoppling.Repositories
     internal class ActorFilmRepository : IActorFilmRepository
     {
         private readonly IQueryBuilder _queryBuilder;
-        private readonly IRepository _repository;
-        public ActorFilmRepository(IQueryBuilder queryBuilder, IRepository repository)
+        private readonly IDbAccess _repository;
+        public ActorFilmRepository(IQueryBuilder queryBuilder, IDbAccess repository)
         {
             _queryBuilder = queryBuilder;
             _repository = repository;
