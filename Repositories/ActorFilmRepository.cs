@@ -11,17 +11,17 @@ namespace ADOnetSakilaKoppling.Repositories
     internal class ActorFilmRepository : IActorFilmRepository
     {
         private readonly IQueryBuilder _queryBuilder;
-        private readonly IDbAccess _repository;
-        public ActorFilmRepository(IQueryBuilder queryBuilder, IDbAccess repository)
+        private readonly IDbAccess _dbAccess;
+        public ActorFilmRepository(IQueryBuilder queryBuilder, IDbAccess dbAccess)
         {
             _queryBuilder = queryBuilder;
-            _repository = repository;
+            _dbAccess = dbAccess;
         }
         public List<Actor> LoadActors(List<Parameter> parameters)
         {
             List<Actor> actors = new List<Actor>();
             string actorQuery = _queryBuilder.GetActorQuery(parameters);
-            foreach (string[] actorResult in _repository.GetQueryResults(actorQuery, parameters))
+            foreach (string[] actorResult in _dbAccess.GetQueryResults(actorQuery, parameters))
             {
                 int actorId = int.Parse(actorResult[0]);
                 string actorFirstName = actorResult[1];
@@ -40,7 +40,7 @@ namespace ADOnetSakilaKoppling.Repositories
         {
             List<Film> films = new List<Film>();
             string filmQuery = _queryBuilder.GetFilmQuery(parameters);
-            foreach (string[] filmResult in _repository.GetQueryResults(filmQuery, parameters))
+            foreach (string[] filmResult in _dbAccess.GetQueryResults(filmQuery, parameters))
             {
                 int filmId = int.Parse(filmResult[0]);
                 string filmTitle = filmResult[1];
@@ -68,7 +68,7 @@ namespace ADOnetSakilaKoppling.Repositories
                 ActorFilmMapping.ActorIdColumn,
                 actor.ActorId.ToString()));
             string actorFilmQuery = _queryBuilder.GetActorFilmQuery(parameters);
-            List<string[]> filmResults = _repository.GetQueryResults(actorFilmQuery, parameters);
+            List<string[]> filmResults = _dbAccess.GetQueryResults(actorFilmQuery, parameters);
             foreach (string[] filmResult in filmResults)
             {
                 int filmId = int.Parse(filmResult[0]);

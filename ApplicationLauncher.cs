@@ -17,9 +17,10 @@ namespace ADOnetSakilaKoppling
         {
             IOutput output = new ConsoleOutput();
             IInput input = new Keyboard(output);
-            IDbAccess repository = new SakilaDbAccess(new SakilaConnectionStringBuilder());
-            IActorFilmRepository actorFilmRepository = new ActorFilmRepository(
-                new ActorFilmQueryBuilder(), repository);
+            IConnectionStringBuilder connectionStringBuilder = new SakilaConnectionStringBuilder();
+            IDbAccess dbAccess = new SakilaDbAccess(connectionStringBuilder);
+            IQueryBuilder queryBuilder = new ActorFilmQueryBuilder();
+            IActorFilmRepository actorFilmRepository = new ActorFilmRepository(queryBuilder, dbAccess);
             IActorFilmService actorFilmService = new DataService(input, output, actorFilmRepository);
             IMenu menu = new MainMenu(input, output);
 
