@@ -104,7 +104,7 @@ namespace ADOnetSakilaKoppling.Repositories
                 ActorMapping.GetSelectClause() +
                 ActorMapping.GetFromClause() +
                 ActorMapping.GetWhereClause(actorMappings) +
-                ActorMapping.ActorORDERBY;
+                ActorMapping.GetOrderByClause();
             foreach (ActorMapping actorMapping in actorMappings)
             {
                 parameters.Add(actorMapping.GetParameter());

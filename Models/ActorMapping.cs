@@ -12,7 +12,6 @@ namespace ADOnetSakilaKoppling.Models
         public const string ActorIdColumn = "actor_id";
         public const string ActorFirstNameColumn = "first_name";
         public const string ActorLastNameColumn = "last_name";
-        public const string ActorORDERBY = $" ORDER BY {ActorLastNameColumn} ASC, {ActorFirstNameColumn} ASC";
         private string _columnName;
         private string _value;
         public ActorMapping(string columnName, string value)
@@ -36,6 +35,10 @@ namespace ADOnetSakilaKoppling.Models
                 whereClause += $" AND {actorMapping._columnName} = @{actorMapping._columnName}";
             }
             return whereClause;
+        }
+        public static string GetOrderByClause()
+        {
+            return $" ORDER BY {ActorLastNameColumn} ASC, {ActorFirstNameColumn} ASC";
         }
         public string[] GetParameter()
         {
